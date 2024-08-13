@@ -1,0 +1,110 @@
+#root {
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Form  */
+
+.mantine-InputWrapper-label {
+  text-align: left;
+  color: #344054;
+}
+form .mantine-Input-wrapper {
+  width: 100%;
+}
+form .mantine-PasswordInput-description {
+  text-align: left;
+}
+/* Header Custom Css */
+
+.mantine-Container-root {
+  max-width: 1400px;
+  
+}
+
+/* Footer Css */
+.footerGrad {
+  overflow: hidden;
+  border-top-right-radius: 16px;
+  border-top-left-radius: 16px;
+  background: linear-gradient(
+    180deg,
+    #f2f4f7 0%,
+    rgba(255, 255, 255, 0) 125.74%
+  );
+}
+
+.footericon {
+  color: #98a2b3;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.5s;
+}
+
+.footericon:hover {
+  color: #15be53;
+  background-color: #d1fadf;
+}
+
+
+.trimTextCard {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trimTextCart {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  max-width: 250px;
+}
+
+.text-truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 200px; /* Adjust the width as needed */
+}
+
+.card-grad {
+  background: radial-gradient(
+        circle at 100% 100%,
+        #ffffff 0,
+        #ffffff 7px,
+        transparent 7px
+      )
+      0% 0%/9px 9px no-repeat,
+    radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 7px, transparent 7px)
+      100% 0%/9px 9px no-repeat,
+    radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 7px, transparent 7px)
+      0% 100%/9px 9px no-repeat,
+    radial-gradient(circle at 0 0, #ffffff 0, #ffffff 7px, transparent 7px) 100%
+      100%/9px 9px no-repeat,
+    linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 4px)
+      calc(100% - 18px) no-repeat,
+    linear-gradient(#ffffff, #ffffff) 50% 50% / calc(100% - 18px)
+      calc(100% - 4px) no-repeat,
+    linear-gradient(
+      51deg,
+      rgba(0, 255, 102, 0.44) 0%,
+      rgba(0, 255, 102, 0.1) 45%,
+      rgba(0, 255, 102, 0.61) 100%
+    );
+  border-radius: 12px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.mantine-10ydsyu {
+  background-color: rgb(200, 0, 0) !important;
+}
+
+
+/*
+EDITION
+*/
+

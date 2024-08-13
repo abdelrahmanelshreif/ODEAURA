@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply min-h-screen min-w-full m-0 p-0 box-border bg-gray-900 text-white;
+}
+
+#root {
+  @apply max-w-full mx-auto text-center;
+}
+
+/* Buttons */
+.mantine-ActionIcon-root svg {
+  @apply stroke-primary;
+}
+
+.mantine-Carousel-indicator {
+  @apply bg-white transition-all duration-200 rounded-full;
+}
+
+.mantine-Button-root {
+  @apply h-11 bg-primary transition-all duration-200 rounded-xl !important;
+}
+
+.mantine-Button-root:hover {
+  @apply bg-green-600;
+}
+
+.mantine-Button-root:active {
+  transform: translateY(0rem) !important;
+}
+
+/* Responsive adjustments using Tailwind's responsive utility classes */
+@media (max-width: 800px) {
+  .mantine-Carousel-indicator {
+    @apply bg-gray-800;
+  }
+
+  .mantine-Button-root {
+    @apply h-10;
+  }
+}
+
+@media (max-width: 480px) {
+  .mantine-Carousel-indicator {
+    @apply bg-gray-600;
+  }
+
+  .mantine-Button-root {
+    @apply h-8;
+  }
+}
+
+/* Portrait mode specific styles */
+@media (orientation: portrait) {
+  .mantine-Carousel-indicator {
+    @apply bg-gray-700;
+  }
+
+  .mantine-Button-root {
+    @apply h-9;
+    @apply bg-green-400;
+  }
+}
+
+/* Landscape mode specific styles */
+@media (orientation: landscape) {
+  .mantine-Carousel-indicator {
+    @apply bg-gray-900;
+  }
+
+  .mantine-Button-root {
+    @apply h-12;
+    @apply bg-primary;
+  }
+}

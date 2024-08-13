@@ -1,0 +1,185 @@
+/* Main container for AdminOrders */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  padding: 16px;
+  background-color: #FCFCFD;
+  width: 100%;
+  overflow-y: auto;
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1400px; /* Limit the max-width for larger screens */
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.title {
+  font-size: 2rem;
+  color: #344054;
+}
+
+.orderCount {
+  font-size: 1.25rem;
+  background-color: #f1f5f9;
+  padding: 8px 16px;
+  border-radius: 12px;
+  color: #333;
+}
+
+/* Orders list container */
+.ordersList {
+  display: flex;
+  flex-direction: column; /* Stack cards vertically on small screens */
+  align-items: center; /* Center horizontally */
+  gap: 16px;
+  width: 100%;
+  max-width: 1400px; /* Limit the max-width for larger screens */
+}
+
+/* Media Queries for Larger Screens */
+@media (min-width: 768px) {
+  .ordersList {
+    flex-direction: row; /* Align cards horizontally on larger screens */
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+}
+
+/* Media Queries for Extra Large Screens */
+@media (min-width: 1200px) {
+  .ordersList {
+    gap: 32px;
+  }
+}
+
+/* Order Card Styles */
+.orderCard {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #fff;
+  overflow: hidden; /* Ensure content stays within the card */
+}
+
+.orderDetails {
+  text-align: left;
+}
+
+.orderId {
+  color: #344054;
+  font-weight: bold;
+}
+
+.userInfo {
+  margin-top: 8px;
+}
+
+.userName {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.userEmail {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.shippingAddress {
+  margin-top: 16px;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+/* Order cost styling */
+.orderCost {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+}
+
+.totalCost {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Delete action styling */
+.deleteAction {
+  margin-top: 16px;
+  margin-left: 16px;
+  
+}
+
+.deleteIcon {
+  background-color: #fdd;
+  transition: all 0.3s;
+}
+
+.deleteIcon:hover {
+  background-color: #fbb;
+}
+
+/* Media Queries for Mobile Screens */
+@media (max-width: 768px) {
+  .orderCard {
+    padding: 12px; /* Adjust padding for mobile */
+  }
+
+  .orderDetails {
+    font-size: 0.875rem; /* Adjust font size for mobile */
+  }
+
+  .orderCost {
+    font-size: 0.75rem; /* Adjust font size for mobile */
+    margin: 0; /* Reset margin to fit within the card */
+    text-align: left; /* Align text to the left */
+  }
+
+  .totalCost {
+    font-size: 0.875rem; /* Adjust font size for mobile */
+  }
+}
+
+/* Media Queries for Larger Screens */
+@media (min-width: 769px) {
+  .orderCard {
+    flex-direction: row;
+    width: 48%; /* Two cards per row with some gap */
+  }
+
+  .orderDetails {
+    flex: 1;
+  }
+
+  .orderCost {
+    flex: 1;
+    text-align: right;
+  }
+}
+
+.itemsList {
+  margin-bottom: 16px;
+  
+}
+
+.itemDetail {
+  border-bottom: 1px solid #ddd;
+  font-size: 0.875rem;
+  color: #666;
+  padding: 8px 0;
+}
+
+.orderSummary {
+  margin-top: 16px;
+  font-weight: bold;
+}
