@@ -145,7 +145,7 @@ const app = express();
 
 const corsOptions = {
   origin: '*', // Allow all origins
-  credentials: true, // Allow cookies and authorization headers
+  credentials: false, // Allow cookies and authorization headers
   allowedHeaders: '*', // Allow all headers
   methods: '*', // Allow all methods
 };
