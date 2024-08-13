@@ -5,7 +5,8 @@ axios.defaults.withCredentials = true
 // todo: Token from Cookies
 
 // const baseUrl = 'https://api.hazemmahdyd.net/'
-const baseUrl = 'http://localhost:3000/'
+// const baseUrl = 'http://localhost:3000/'
+const baseUrl = 'https://odeaura-api.vercel.app/'
 
 const axiosClient = axios.create({
   baseURL: baseUrl,
