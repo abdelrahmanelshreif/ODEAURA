@@ -26,78 +26,33 @@ const signup = async (req, res) => {
   }
 }
 
-// const login = async (req, res) => {
-//   const { email, password } = req.body
-//   try {
-//     // login
-//     const user = await User.login(email, password)
-
-//     // create token
-//     const payload = { id: user._id, isAdmin: user.isAdmin }
-//     const token = jwt.sign(payload, process.env.SECRET_KEY, {
-//       expiresIn: maxAge,
-//     })
-
-//     res.cookie('jwt', token, {
-//       httpOnly: true,
-//       maxAge: maxAge * 1000,
-//     })
-//     delete user._doc.password
-
-//     res.status(200).json(user)
-//   } catch (err) {
-//     const errors = handleLoginError(err)
-//     if (Object.keys(errors).length > 0) return res.status(400).json(errors)
-
-//     console.log(`login post error: ${err}`)
-//     res.status(500).json({ message: 'Internal server error' })
-//   }
-// }
-
 const login = async (req, res) => {
-  const { email, password } = req.body;
-
-  // Basic validation for email and password
-  if (!email || !password) {
-    return res.status(400).json({ message: 'Email and password are required' });
-  }
-
+  const { email, password } = req.body
   try {
-    // Attempt to login the user
-    const user = await User.login(email, password);
+    // login
+    const user = await User.login(email, password)
 
-    // Create the JWT token
-    const payload = { id: user._id, isAdmin: user.isAdmin };
+    // create token
+    const payload = { id: user._id, isAdmin: user.isAdmin }
     const token = jwt.sign(payload, process.env.SECRET_KEY, {
       expiresIn: maxAge,
-    });
+    })
 
-    // Set the cookie
     res.cookie('jwt', token, {
       httpOnly: true,
       maxAge: maxAge * 1000,
-      // Secure: process.env.NODE_ENV === 'production', // Uncomment if using HTTPS
-    });
+    })
+    delete user._doc.password
 
-    // Remove password from the response
-    delete user._doc.password;
-
-    // Send user data in response
-    res.status(200).json(user);
+    res.status(200).json(user)
   } catch (err) {
-    // Handle different types of errors
-    const errors = handleLoginError(err);
+    const errors = handleLoginError(err)
+    if (Object.keys(errors).length > 0) return res.status(400).json(errors)
 
-    // If there are validation errors, respond with 400
-    if (Object.keys(errors).length > 0) {
-      return res.status(400).json(errors);
-    }
-
-    // Log the error and respond with 500
-    console.error(`Login post error: ${err}`);
-    res.status(500).json({ message: 'Internal server error' });
+    console.log(`login post error: ${err}`)
+    res.status(500).json({ message: 'Internal server error' })
   }
-};
+}
 
 const logout = (req, res) => {
   try {

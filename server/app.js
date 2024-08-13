@@ -136,11 +136,18 @@ require('dotenv').config();
 const app = express();
 
 // Middlewares
+// const corsOptions = {
+//   origin: ['https://odeaura.vercel.app', 'http://localhost:5173'], // Array of allowed origins
+//   credentials: true, // Allow cookies and authorization headers
+//   allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these methods
+// };
+
 const corsOptions = {
-  origin: ['https://odeaura.vercel.app', 'http://localhost:5173'], // Array of allowed origins
+  origin: '*', // Allow all origins
   credentials: true, // Allow cookies and authorization headers
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these methods
+  allowedHeaders: '*', // Allow all headers
+  methods: '*', // Allow all methods
 };
 
 
