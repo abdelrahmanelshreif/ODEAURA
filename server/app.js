@@ -137,10 +137,10 @@ const app = express();
 
 // Middlewares
 const corsOptions = {
-  origin: ['https://odeaura.vercel.app', 'http://localhost:5173'], // Array of allowed origins
-  credentials: true, // Allow cookies and authorization headers
-  allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow these methods
+  origin: ['https://odeaura.vercel.app', 'http://localhost:5173'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization','accept','origin'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
 };
 
 
