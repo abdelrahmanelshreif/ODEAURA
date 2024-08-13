@@ -97,6 +97,10 @@ mongoose
     console.error(`Error connecting to MongoDB: ${err}`);
   });
 
+
+app.get("/",(req,res)=>{
+  res.json("Hello");
+})
 // Apply middleware to all routes
 app.use(checkUser);
 
