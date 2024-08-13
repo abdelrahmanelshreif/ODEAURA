@@ -148,7 +148,7 @@ app.use(helmet()); // Security middleware
 
 // Environment variables
 const port = process.env.PORT || 3000;
-const dbURI = process.env.DB_URI || 'mongodb+srv://username:password@cluster0.mongodb.net/yourDatabaseName';
+const dbURI = process.env.DB_URI || 'mongodb+srv://abdelrahman93955:css@cluster0.en4bwyr.mongodb.net/ODEAURA';
 
 // Connecting to DB
 mongoose
