@@ -140,7 +140,8 @@ const corsOptions = {
   origin: ['https://odeaura.vercel.app', 'http://localhost:5173'],
   credentials: true,
   allowedHeaders: ['*'],
-  methods: ['*'],
+  preflightContinue: false,
+  methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
 };
 
 
