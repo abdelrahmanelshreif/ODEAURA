@@ -59,6 +59,7 @@ const getTokenFromCookies = () => {
 };
 
 const baseUrl = 'https://odeaura-api.vercel.app/';
+// const baseUrl = 'http://localhost:3000/';
 
 const axiosClient = axios.create({
   baseURL: baseUrl,
@@ -68,6 +69,7 @@ const axiosClient = axios.create({
   paramsSerializer: (params) => queryString.stringify(params),
 });
 
+
 axiosClient.interceptors.request.use(async (config) => {
   const token = getTokenFromCookies();
   if (token) {
@@ -75,6 +77,7 @@ axiosClient.interceptors.request.use(async (config) => {
   }
   return config;
 });
+
 
 axiosClient.interceptors.response.use(
   (response) => {
@@ -90,5 +93,6 @@ axiosClient.interceptors.response.use(
     throw err.response;
   }
 );
+
 
 export default axiosClient;
