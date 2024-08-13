@@ -150,41 +150,14 @@ const app = express();
 //   methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
 // };
 
-// const corsOptions = {
-//   origin: ['https://odeaura.vercel.app', 'http://localhost:5173'], // Adjust these as needed
-//   credentials: true,
-//   allowedHeaders: [
-//     'Content-Type',
-//     'Authorization',
-//     'Accept',
-//     'Accept-Encoding',
-//     'Connection',
-//     'Access-Control-Allow-Credentials',
-//     'Cache-Control',
-//     'Content-Length',
-//     'Content-Security-Policy',
-//     'Cross-Origin-Opener-Policy',
-//     'Cross-Origin-Resource-Policy',
-//     'Date',
-//     'Origin-Agent-Cluster',
-//     'Referrer-Policy',
-//     'Server',
-//     'Strict-Transport-Security',
-//     'Vary',
-//     'X-Content-Type-Options',
-//     'X-Dns-Prefetch-Control',
-//     'X-Download-Options',
-//     'X-Frame-Options',
-//     'X-Permitted-Cross-Domain-Policies',
-//     'X-Vercel-Cache',
-//     'X-Vercel-Id',
-//     'X-Xss-Protection'
-//   ],
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-// };
+const cors = require('cors');
+app.use(cors({
+  origin: 'https://odeaura.vercel.app',
+  credentials: true
+}));
 
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
