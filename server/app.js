@@ -136,23 +136,55 @@ require('dotenv').config();
 const app = express();
 
 // Middlewares
-const corsOptions = {
-  origin: ['https://odeaura.vercel.app', 'http://localhost:5173'],
-  credentials: true,
-  allowedHeaders: [
-    'Content-Type',       // To allow content type header
-    'Authorization',      // To allow the JWT token in the Authorization header
-    'Accept',             // To allow specifying acceptable content types
-    'Accept-Encoding',    // To allow specifying acceptable content encodings
-    'Connection'          // To allow managing the connection type
-  ],
-  preflightContinue: false,
-  methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
-};
+// const corsOptions = {
+//   origin: ['https://odeaura.vercel.app', 'http://localhost:5173'],
+//   credentials: true,
+//   allowedHeaders: [
+//     'Content-Type',       // To allow content type header
+//     'Authorization',      // To allow the JWT token in the Authorization header
+//     'Accept',             // To allow specifying acceptable content types
+//     'Accept-Encoding',    // To allow specifying acceptable content encodings
+//     'Connection'          // To allow managing the connection type
+//   ],
+//   preflightContinue: false,
+//   methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
+// };
+
+// const corsOptions = {
+//   origin: ['https://odeaura.vercel.app', 'http://localhost:5173'], // Adjust these as needed
+//   credentials: true,
+//   allowedHeaders: [
+//     'Content-Type',
+//     'Authorization',
+//     'Accept',
+//     'Accept-Encoding',
+//     'Connection',
+//     'Access-Control-Allow-Credentials',
+//     'Cache-Control',
+//     'Content-Length',
+//     'Content-Security-Policy',
+//     'Cross-Origin-Opener-Policy',
+//     'Cross-Origin-Resource-Policy',
+//     'Date',
+//     'Origin-Agent-Cluster',
+//     'Referrer-Policy',
+//     'Server',
+//     'Strict-Transport-Security',
+//     'Vary',
+//     'X-Content-Type-Options',
+//     'X-Dns-Prefetch-Control',
+//     'X-Download-Options',
+//     'X-Frame-Options',
+//     'X-Permitted-Cross-Domain-Policies',
+//     'X-Vercel-Cache',
+//     'X-Vercel-Id',
+//     'X-Xss-Protection'
+//   ],
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+// };
 
 
-
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(cookieParser());
