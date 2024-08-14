@@ -136,20 +136,39 @@ require('dotenv').config();
 const app = express();
 
 // Middlewares
+// const corsOptions = {
+//   origin: ['https://odeaura.vercel.app', 'http://localhost:5173'],
+//   credentials: true,
+//   allowedHeaders: [
+//     'Content-Type',       // To allow content type header
+//     'Authorization',      // To allow the JWT token in the Authorization header
+//     'Accept',             // To allow specifying acceptable content types
+//     'Accept-Encoding',    // To allow specifying acceptable content encodings
+//     'Connection'          // To allow managing the connection type
+//   ],
+//   preflightContinue: true,
+//   methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
+// };
+
 const corsOptions = {
-  origin: ['https://odeaura.vercel.app', 'http://localhost:5173'],
+  origin: (origin, callback) => {
+    const allowedOrigins = ['https://odeaura.vercel.app', 'http://localhost:5173'];
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   allowedHeaders: [
-    'Content-Type',       // To allow content type header
-    'Authorization',      // To allow the JWT token in the Authorization header
-    'Accept',             // To allow specifying acceptable content types
-    'Accept-Encoding',    // To allow specifying acceptable content encodings
-    'Connection'          // To allow managing the connection type
+    'Content-Type',
+    'Authorization',
+    'Accept',
+    'Accept-Encoding',
+    'Connection'
   ],
-  preflightContinue: true,
-  methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
 };
-
 
 
 app.use(cors(corsOptions));
