@@ -149,8 +149,7 @@ const app = express();
 //   preflightContinue: true,
 //   methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
 // };
-app.use(cookieParser());
-app.use(express.json());
+
 const corsOptions = {
   origin: (origin, callback) => {
     const allowedOrigins = ['https://odeaura.vercel.app', 'http://localhost:5173'];
@@ -174,8 +173,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-
-
+app.use(express.json());
+app.use(cookieParser());
 app.use(helmet()); // Security middleware
 
 // Environment variables
