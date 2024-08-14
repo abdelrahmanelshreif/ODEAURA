@@ -158,6 +158,14 @@ app.use((req, res, next) => {
 
 app.use(cors(corsOptions));
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://odeaura.vercel.app");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,PUT,PATCH,POST,DELETE");
+  next();
+});
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(helmet()); // Security middleware
@@ -196,6 +204,10 @@ app.use(productRoutes);
 app.use(cartRoutes);
 app.use(orderRoutes);
 app.use(wishlistRoutes);
+
+
+// Handle CORS preflight requests
+app.options('*', cors(corsOptions));
 
 // Error handling middleware (optional)
 app.use((err, req, res, next) => {
