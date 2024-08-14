@@ -79,6 +79,7 @@ app.use(cors({
 }));
 
 
+// Enable CORS for all origins
 app.use(express.json());
 app.use(cookieParser());
 
