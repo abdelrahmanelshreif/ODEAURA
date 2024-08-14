@@ -165,7 +165,6 @@ const corsOptions = {
     'Authorization',
     'Accept',
     'Accept-Encoding',
-    'Connection'
   ],
   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
 };
