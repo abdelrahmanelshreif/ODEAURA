@@ -136,46 +136,30 @@ require('dotenv').config();
 const app = express();
 
 // Middlewares
-// const corsOptions = {
-//   origin: ['https://odeaura.vercel.app', 'http://localhost:5173'],
-//   credentials: true,
-//   allowedHeaders: [
-//     'Content-Type',       // To allow content type header
-//     'Authorization',      // To allow the JWT token in the Authorization header
-//     'Accept',             // To allow specifying acceptable content types
-//     'Accept-Encoding',    // To allow specifying acceptable content encodings
-//     'Connection'          // To allow managing the connection type
-//   ],
-//   preflightContinue: true,
-//   methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
-// };
-app.use(cookieParser());
-app.use(express.json());
 const corsOptions = {
-  origin: (origin, callback) => {
-    const allowedOrigins = ['https://odeaura.vercel.app', 'http://localhost:5173'];
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin: ['https://odeaura.vercel.app', 'http://localhost:5173'],
   credentials: true,
   allowedHeaders: [
-    'Content-Type',
-    'Authorization',
-    'Accept',
-    'Accept-Encoding',
-    'Connection'
+    'Content-Type',       // To allow content type header
+    'Authorization',      // To allow the JWT token in the Authorization header
+    'Accept',             // To allow specifying acceptable content types
+    'Accept-Encoding',    // To allow specifying acceptable content encodings
+    'Connection'          // To allow managing the connection type
   ],
-  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+  preflightContinue: true,
+  methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
 };
 
+app.use((req, res, next) => {
+  console.log('Request Headers:', req.headers);
+  console.log('Response Headers:', res.getHeaders());
+  next();
+});
 
 app.use(cors(corsOptions));
 
-
-
+app.use(express.json());
+app.use(cookieParser());
 app.use(helmet()); // Security middleware
 
 // Environment variables
