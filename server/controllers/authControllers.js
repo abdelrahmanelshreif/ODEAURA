@@ -2,7 +2,7 @@ const { handleLoginError } = require('../validators/loginValidators')
 const { checkUniqueness } = require('../validators/signupValidators')
 const { User } = require('./../models/User')
 const jwt = require('jsonwebtoken')
-
+require('dotenv').config();
 const maxAge = 24 * 60 * 60 // 1 day in msec
 
 const signup = async (req, res) => {
@@ -40,6 +40,7 @@ const login = async (req, res) => {
 
     res.cookie('jwt', token, {
       httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // Ensure secure cookies in production
       sameSite: 'None',
       maxAge: maxAge * 1000,
     })
