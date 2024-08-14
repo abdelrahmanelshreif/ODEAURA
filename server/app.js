@@ -146,7 +146,7 @@ const corsOptions = {
     'Accept-Encoding',    // To allow specifying acceptable content encodings
     'Connection'          // To allow managing the connection type
   ],
-  preflightContinue: false,
+  preflightContinue: true,
   methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
 };
 
