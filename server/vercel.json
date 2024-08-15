@@ -9,7 +9,13 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/app.js"
+      "dest": "/app.js",
+      "headers": [
+        { "key": "Access-Control-Allow-Credentials", "value": "true" },
+        { "key": "Access-Control-Allow-Origin", "value": "https://odeaura.vercel.app" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,POST,OPTIONS,PUT,PATCH,DELETE" },
+        { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Content-Type, Accept, Authorization" }
+      ]
     }
   ]
 }
