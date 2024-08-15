@@ -21,8 +21,8 @@ const setToken = (token) => {
   // Alternatively, use local storage
   // localStorage.setItem('token', token);
 };
-// const baseUrl = 'https://odeaura-api.vercel.app/';
-const baseUrl = 'http://localhost:3000/';
+const baseUrl = 'https://odeaura-api.vercel.app/';
+// const baseUrl = 'http://localhost:3000/';
 
 
 

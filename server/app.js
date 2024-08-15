@@ -137,14 +137,26 @@ const app = express();
 
 
 
-app.use(cors({
-  origin: ['https://odeaura.vercel.app','http://localhost:5173'],
+// app.use(cors({
+//   origin: ['https://odeaura.vercel.app','http://localhost:5173'],
+//   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'],
+//   credentials: true,
+//   allowedHeaders: 'X-CSRF-Token, X-Requested-With, Content-Type, Accept, Authorization'
+// }));
+
+// app.options('*', cors());
+
+const corsOptions = {
+  origin: ['https://odeaura.vercel.app', 'http://localhost:5173'],
   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'],
   credentials: true,
-  allowedHeaders: 'X-CSRF-Token, X-Requested-With, Content-Type, Accept, Authorization'
-}));
+  allowedHeaders: ['X-CSRF-Token', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+};
 
-app.options('*', cors());
+app.use(cors(corsOptions));
+
+// Handle preflight requests for all routes
+app.options('*', cors(corsOptions));
 
 
 app.use(express.json());
