@@ -27,45 +27,78 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
-  // Extract email and password from URL query parameters
-  console.log(req.query);
-  const { email, password } = req.query;
-  
+  const { email, password } = req.body
   try {
-    // Attempt to log in the user
-    const user = await User.login(email, password);
+    // login
+    const user = await User.login(email, password)
 
-    // Create JWT payload and sign the token
-    const payload = { id: user._id, isAdmin: user.isAdmin };
+    // create token
+    const payload = { id: user._id, isAdmin: user.isAdmin }
     const token = jwt.sign(payload, process.env.SECRET_KEY, {
-      expiresIn: maxAge, // Ensure maxAge is defined
-    });
+      expiresIn: maxAge,
+    })
 
-    // Set the JWT as an HTTP-only cookie
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Secure cookie in production
-      sameSite: 'None', // Adjust 'SameSite' if necessary
       maxAge: maxAge * 1000,
-    });
+    })
+    delete user._doc.password
 
-    // Remove the password from the user object before sending it back
-    delete user._doc.password;
-
-    // Send the user object as a response
-    res.status(200).json(user);
+    res.status(200).json(user)
   } catch (err) {
-    // Handle login errors
-    const errors = handleLoginError(err);
-    if (Object.keys(errors).length > 0) {
-      return res.status(400).json(errors);
-    }
+    const errors = handleLoginError(err)
+    if (Object.keys(errors).length > 0) return res.status(400).json(errors)
 
-    // Log the error and return a generic server error message
-    console.error(`Login error: ${err}`);
-    res.status(500).json({ message: 'Internal server error' });
+    console.log(`login post error: ${err}`)
+    res.status(500).json({ message: 'Internal server error' })
   }
-};
+}
+
+
+//------------------------------------------------------
+// login wit URL PARAMS
+//------------------------------------------------------
+// const login = async (req, res) => {
+//   // Extract email and password from URL query parameters
+//   console.log(req.query);
+//   const { email, password } = req.query;
+  
+//   try {
+//     // Attempt to log in the user
+//     const user = await User.login(email, password);
+
+//     // Create JWT payload and sign the token
+//     const payload = { id: user._id, isAdmin: user.isAdmin };
+//     const token = jwt.sign(payload, process.env.SECRET_KEY, {
+//       expiresIn: maxAge, // Ensure maxAge is defined
+//     });
+
+//     // Set the JWT as an HTTP-only cookie
+//     res.cookie('jwt', token, {
+//       httpOnly: true,
+//       secure: process.env.NODE_ENV === 'production', // Secure cookie in production
+//       sameSite: 'None', // Adjust 'SameSite' if necessary
+//       maxAge: maxAge * 1000,
+//     });
+
+//     // Remove the password from the user object before sending it back
+//     delete user._doc.password;
+
+//     // Send the user object as a response
+//     res.status(200).json(user);
+//   } catch (err) {
+//     // Handle login errors
+//     const errors = handleLoginError(err);
+//     if (Object.keys(errors).length > 0) {
+//       return res.status(400).json(errors);
+//     }
+
+//     // Log the error and return a generic server error message
+//     console.error(`Login error: ${err}`);
+//     res.status(500).json({ message: 'Internal server error' });
+//   }
+// };
+
 
 
 const logout = (req, res) => {

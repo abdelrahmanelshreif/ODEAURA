@@ -149,7 +149,7 @@ app.use(cors({
   origin: ['https://odeaura.vercel.app','http://localhost:5173','http://localhost:3000'],
   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'],
   credentials: true,
-  allowedHeaders: 'Content-Type,Authorization' // Allow these headers
+  allowedHeaders: 'X-CSRF-Token, X-Requested-With, Content-Type, Accept, Authorization'
 }));
 
 app.options('*', cors());
