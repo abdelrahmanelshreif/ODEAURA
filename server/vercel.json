@@ -10,12 +10,12 @@
     {
       "src": "/(.*)",
       "dest": "/app.js",
-      "headers": [
-        { "key": "Access-Control-Allow-Credentials", "value": "true" },
-        { "key": "Access-Control-Allow-Origin", "value": "https://odeaura.vercel.app" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET,POST,OPTIONS,PUT,PATCH,DELETE" },
-        { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Content-Type, Accept, Authorization" }
-      ]
+      "headers": {
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Origin": "https://odeaura.vercel.app",
+        "Access-Control-Allow-Methods": "GET,POST,OPTIONS,PUT,PATCH,DELETE",
+        "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Content-Type, Accept, Authorization"
+      }
     }
   ]
 }
