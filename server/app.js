@@ -146,7 +146,7 @@ const app = express();
 
 // app.use(cors(corsOptions));
 app.use(cors({
-  origin: 'https://odeaura.vercel.app',
+  origin: ['https://odeaura.vercel.app','http://localhost:5173,http://localhost:3000'],
   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'],
   credentials: true
 }));
