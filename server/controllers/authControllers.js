@@ -41,6 +41,8 @@ const login = async (req, res) => {
     res.cookie('jwt', token, {
       httpOnly: true,
       maxAge: maxAge * 1000,
+      secure: true, // Ensure HTTPS
+      sameSite: 'None' // Required for cross-site requests
     })
     delete user._doc.password
 
