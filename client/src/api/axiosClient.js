@@ -58,8 +58,8 @@ const getTokenFromCookies = () => {
   return null;
 };
 
-// const baseUrl = 'https://odeaura-api.vercel.app/';
-const baseUrl = 'http://localhost:3000/';
+const baseUrl = 'https://odeaura-api.vercel.app/';
+// const baseUrl = 'http://localhost:3000/';
 
 const axiosClient = axios.create({
   baseURL: baseUrl,
