@@ -1,10 +1,49 @@
-import axiosClient from './axiosClient'
+// import axiosClient from './axiosClient'
 
-const orderApi = {
-  addOrder: (params) => axiosClient.post('orders/add', params),
-  getMyOrders: () => axiosClient.get('myorders'),
-  getAllOrders: () => axiosClient.get('orders'),
-  deleteOrder: (id) => axiosClient.delete(`orders/delete/${id}`),
-}
+// const orderApi = {
+//   addOrder: (params) => axiosClient.post('orders/add', params),
+//   getMyOrders: () => axiosClient.get('myorders'),
+//   getAllOrders: () => axiosClient.get('orders'),
+//   deleteOrder: (id) => axiosClient.delete(`orders/delete/${id}`),
+// }
 
-export default orderApi
+// export default orderApi
+
+
+import getToken from './AuthAPI'
+const baseUrl = 'https://odeaura-api.vercel.app/';
+
+const fetchWithAuth = async (url, options = {}) => {
+  const token = getToken();
+  if (token) {
+    options.headers = {
+      ...options.headers,
+      'Authorization': `Bearer ${token}`
+    };
+  }
+  const response = await fetch(`${baseUrl}${url}`, options);
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  return response.json();
+};
+
+const orderAPI = {
+  addOrder: (params) => fetchWithAuth('orders/add', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(params)
+  }),
+
+  getMyOrders: () => fetchWithAuth('myorders'),
+
+  getAllOrders: () => fetchWithAuth('orders'),
+
+  deleteOrder: (id) => fetchWithAuth(`orders/delete/${id}`, {
+    method: 'DELETE'
+  }),
+};
+
+export default orderAPI;
