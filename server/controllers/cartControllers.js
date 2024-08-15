@@ -139,8 +139,8 @@ const cartSession = async (req, res) => {
     payment_method_types: ['card'],
     line_items: lineItems,
     mode: 'payment',
-    success_url: `http://localhost:5173/`,
-    cancel_url: 'http://localhost:3000/cancel',
+    success_url: `https://odeaura.vercel.app:5173/`,
+    cancel_url: 'https:///odeaura-api.vercel.app/cancel',
   })
   console.log('seeees', session)
   res.json({ id: session.id })
