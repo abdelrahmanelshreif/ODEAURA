@@ -38,12 +38,13 @@ const login = async (req, res) => {
       expiresIn: maxAge,
     })
 
-    res.cookie('jwt', token, {
+    res.cookie('Authorization', token, {
       httpOnly: true,
       maxAge: maxAge * 1000,
-      secure: true, // Ensure HTTPS
+      // secure: true, // Ensure HTTPS
       sameSite: 'None' // Required for cross-site requests
-    })
+    });
+    
     delete user._doc.password
 
     res.status(200).json(user)
