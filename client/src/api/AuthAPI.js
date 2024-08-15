@@ -76,8 +76,8 @@ const authAPI = {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json, text/plain, */*',
-          // 'Origin': 'https://odeaura.vercel.app',
-          'Origin': 'http://localhost:5173',
+          'Origin': 'https://odeaura.vercel.app',
+          // 'Origin': 'http://localhost:5173',
         },
         body: JSON.stringify({ email, password }),
         credentials: 'include', // Important to include cookies
