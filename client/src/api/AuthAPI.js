@@ -16,7 +16,7 @@ import axiosClient from './axiosClient';
 
 const authAPI = {
   signup: (params) => axiosClient.post('signup', params),
-  login: (params) => axiosClient.post('login', params),
+  login: ({ email, password }) => axiosClient.post(`login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`),
   loginget: () => axiosClient.get('login'),
   verifyUser: () => axiosClient.get('me'),
   logout: () => axiosClient.post('logout'),

@@ -2,7 +2,7 @@ const { handleLoginError } = require('../validators/loginValidators')
 const { checkUniqueness } = require('../validators/signupValidators')
 const { User } = require('./../models/User')
 const jwt = require('jsonwebtoken')
-require('dotenv').config();
+
 const maxAge = 24 * 60 * 60 // 1 day in msec
 
 const signup = async (req, res) => {
@@ -26,70 +26,47 @@ const signup = async (req, res) => {
   }
 }
 
-// const login = async (req, res) => {
-//   const { email, password } = req.body
-//   try {
-//     // login
-//     const user = await User.login(email, password)
-
-//     // create token
-//     const payload = { id: user._id, isAdmin: user.isAdmin }
-//     const token = jwt.sign(payload, process.env.SECRET_KEY, {
-//       expiresIn: maxAge,
-//     })
-
-//     res.cookie('jwt', token, {
-//       httpOnly: true,
-//       secure: true, 
-//       sameSite: 'None',
-//       maxAge: maxAge * 1000,
-//     })
-//     delete user._doc.password
-
-//     res.status(200).json(user)
-//   } catch (err) {
-//     const errors = handleLoginError(err)
-//     if (Object.keys(errors).length > 0) return res.status(400).json(errors)
-
-//     console.log(`login post error: ${err}`)
-//     res.status(500).json({ message: 'Internal server error' })
-//   }
-// }
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  // Extract email and password from URL query parameters
+  console.log(req.query);
+  const { email, password } = req.query;
+  
   try {
-    // Authenticate user
-    const user = await User.login(email, password); // Ensure this method checks hashed password
+    // Attempt to log in the user
+    const user = await User.login(email, password);
 
-    // Create token
+    // Create JWT payload and sign the token
     const payload = { id: user._id, isAdmin: user.isAdmin };
     const token = jwt.sign(payload, process.env.SECRET_KEY, {
-      expiresIn: maxAge,
+      expiresIn: maxAge, // Ensure maxAge is defined
     });
 
-    // Optionally set the cookie (if you want to use cookies as well)
+    // Set the JWT as an HTTP-only cookie
     res.cookie('jwt', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Set secure based on environment
-      sameSite: 'None',
+      secure: process.env.NODE_ENV === 'production', // Secure cookie in production
+      sameSite: 'None', // Adjust 'SameSite' if necessary
       maxAge: maxAge * 1000,
     });
 
-    // Send the token in the JSON response
-    delete user._doc.password; // Remove password before sending user data
-    res.status(200).json({
-      message: 'Login successful',
-      token: token, // Include the token in the response
-      user: user,   // Optionally include user data
-    });
-  } catch (err) {
-    const errors = handleLoginError(err);
-    if (Object.keys(errors).length > 0) return res.status(400).json(errors);
+    // Remove the password from the user object before sending it back
+    delete user._doc.password;
 
-    console.log(`login post error: ${err}`);
+    // Send the user object as a response
+    res.status(200).json(user);
+  } catch (err) {
+    // Handle login errors
+    const errors = handleLoginError(err);
+    if (Object.keys(errors).length > 0) {
+      return res.status(400).json(errors);
+    }
+
+    // Log the error and return a generic server error message
+    console.error(`Login error: ${err}`);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 const logout = (req, res) => {
   try {
