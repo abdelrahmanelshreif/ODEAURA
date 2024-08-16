@@ -1,4 +1,8 @@
 import axiosClient from './axiosClient';
+// Example for storing token after login
+function storeToken(token) {
+  localStorage.setItem('token', token);
+}
 
 const authAPI = {
   signup: (params) => axiosClient.post('signup', params),
@@ -22,6 +26,7 @@ const authAPI = {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
+      storeToken(response.data.token);
       return await response.json();
     } catch (error) {
       console.error('Login error:', error);
