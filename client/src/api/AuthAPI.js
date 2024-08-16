@@ -1,6 +1,8 @@
 import axiosClient from './axiosClient';
-import getToken from './axiosClient';
-
+// Example for storing token after login
+function storeToken(token) {
+  localStorage.setItem('token', token);
+}
 
 const authAPI = {
   signup: (params) => axiosClient.post('signup', params),
@@ -24,6 +26,7 @@ const authAPI = {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
+      storeToken(response.data.token);
       return await response.json();
     } catch (error) {
       console.error('Login error:', error);
@@ -32,9 +35,10 @@ const authAPI = {
   },
 
   loginget: () => axiosClient.get('login'),
-  verifyUser: () => axiosClient.get('me', {
-    cookies: {
-      'jwt': `${getToken()}`,
+  // verifyUser: () => axiosClient.get('me'),
+    verifyUser: () => axiosClient.get('me', {
+    headers: {
+      'Authorization': `${localStorage.getItem('token')}`,
     }
   }),
   logout: () => axiosClient.post('logout'),
@@ -59,7 +63,7 @@ export default authAPI;
   
   // Alternatively, use local storage
   // return localStorage.getItem('token');
-// };
+};
 
 // Function to set the token in cookies or local storage
 // const setToken = (token) => {
