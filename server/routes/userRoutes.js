@@ -10,7 +10,7 @@ const { isAuthenticated, isAdmin } = require('./../middleware/auth')
 const router = Router()
 
 // user routes
-router.get('/me', getMe)
+router.get('/me', isAuthenticated, getMe)
 router.put('/updateMe', isAuthenticated, updateMe)
 
 // admin routes
