@@ -1,5 +1,5 @@
 import axiosClient from './axiosClient';
-// Example for storing token after login
+
 
 const authAPI = {
   signup: (params) => axiosClient.post('signup', params),
@@ -31,16 +31,23 @@ const authAPI = {
   },
 
   loginget: () => axiosClient.get('login'),
-  // verifyUser: () => axiosClient.get('me'),
-    verifyUser: () => axiosClient.get('me', {
+  verifyUser: () => axiosClient.get('me', {
     headers: {
-      'Authorization': `${localStorage.getItem('token')}`,
+      'Authorization': `${getToken()}`,
     }
   }),
   logout: () => axiosClient.post('logout'),
   allUsers: () => axiosClient.get('users'),
   deleteUser: (id) => axiosClient.delete(`users/remove/${id}`),
 };
+
+
+const getToken = () => {
+  // Example using cookies
+  const matches = document.cookie.match(new RegExp('(^| )jwt=([^;]+)'));
+  if (matches) return matches[2];
+};
+
 
 export default authAPI;
 
