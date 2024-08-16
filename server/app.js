@@ -151,7 +151,7 @@ const app = express();
 // // Handle preflight OPTIONS requests for all routes
 // app.options('*', cors(corsOptions));
 
-const cors = require('cors');
+
 app.use(cors());
 
 
