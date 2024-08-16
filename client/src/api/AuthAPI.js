@@ -26,7 +26,7 @@ const authAPI = {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      storeToken(response.data.token);
+      storeToken(response.token);
       return await response.json();
     } catch (error) {
       console.error('Login error:', error);
@@ -56,14 +56,14 @@ export default authAPI;
 // import axiosClient from './axiosClient';
 
 // // Function to get the token from cookies or local storage
-const getToken = () => {
-  // Example using cookies
-  const matches = document.cookie.match(new RegExp('(^| )jwt=([^;]+)'));
-  if (matches) return matches[2];
+// const getToken = () => {
+//   // Example using cookies
+//   const matches = document.cookie.match(new RegExp('(^| )jwt=([^;]+)'));
+//   if (matches) return matches[2];
   
   // Alternatively, use local storage
   // return localStorage.getItem('token');
-};
+// };
 
 // Function to set the token in cookies or local storage
 // const setToken = (token) => {
