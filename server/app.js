@@ -137,7 +137,7 @@ const app = express();
 
 
 
-CORS Configuration
+
 const corsOptions = {
   origin: ['https://odeaura.vercel.app', 'http://localhost:5173'], // Allow frontend origins
   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'], // Allow necessary methods
