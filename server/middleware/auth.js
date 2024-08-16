@@ -30,6 +30,8 @@ const checkUser = async (req, res, next) => {
 
 const isAuthenticated = (req, res, next) => {
   const token = req.cookies.jwt
+  // const token = localStorage.getItem('token');
+
   try {
     isTokenFound(token)
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY)
