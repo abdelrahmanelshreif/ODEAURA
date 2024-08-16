@@ -6,7 +6,7 @@ const { validateLoginInput } = require('./../validators/loginValidators')
 const router = Router()
 
 router.post('/signup', validateSignupInput, signup)
-router.post('/login', login)
+router.post('/login', validateLoginInput,login)
 router.post('/logout', logout)
 
 module.exports = router

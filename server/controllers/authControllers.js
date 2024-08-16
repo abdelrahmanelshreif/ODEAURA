@@ -23,7 +23,7 @@ const createSendToken = (user, statusCode, res) => {
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
   user.password = undefined; // Hide password in the response
-  res.cookie('jwt', token, cookieOptions);
+  res.cookie('login_token', token, cookieOptions);
   res.status(statusCode).json({
     status: 'success',
     token,
@@ -77,7 +77,7 @@ const login = async (req, res) => {
 
 const logout = (req, res) => {
   try {
-    res.clearCookie('jwt', { sameSite: 'None', secure: true });
+    res.clearCookie('login_token', { sameSite: 'None', secure: true });
 
     res.status(200).json({ message: 'Logged out successfully' });
   } catch (error) {
