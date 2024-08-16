@@ -12,6 +12,12 @@ const setToken = (token) => {
 };
 
 
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 const baseUrl = 'https://odeaura-api.vercel.app';
 // const baseUrl = 'http://localhost:3000/';
 
@@ -27,7 +33,7 @@ const axiosClient = axios.create({
 
 
 axiosClient.interceptors.request.use(async (config) => {
-  const token = localStorage.getItem('token');
+  const token = getCookie('login_token');
     if (token) {
     setToken(token);
   }
