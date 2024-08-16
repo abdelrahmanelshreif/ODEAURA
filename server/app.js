@@ -138,18 +138,21 @@ const app = express();
 
 
 // CORS Configuration
-const corsOptions = {
-  origin: ['https://odeaura.vercel.app', 'http://localhost:5173'], // Allow frontend origins
-  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'], // Allow necessary methods
-  credentials: true, // Allow cookies and credentials
-  allowedHeaders: ['X-CSRF-Token', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'] // Allow necessary headers
-};
+// const corsOptions = {
+//   origin: ['https://odeaura.vercel.app', 'http://localhost:5173'], // Allow frontend origins
+//   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'], // Allow necessary methods
+//   credentials: true, // Allow cookies and credentials
+//   allowedHeaders: ['X-CSRF-Token', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'] // Allow necessary headers
+// };
 
-// Apply CORS middleware
-app.use(cors(corsOptions));
+// // Apply CORS middleware
+// app.use(cors(corsOptions));
 
-// Handle preflight OPTIONS requests for all routes
-app.options('*', cors(corsOptions));
+// // Handle preflight OPTIONS requests for all routes
+// app.options('*', cors(corsOptions));
+
+const cors = require('cors');
+app.use(cors());
 
 
 app.use(express.json());

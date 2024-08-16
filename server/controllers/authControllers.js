@@ -61,6 +61,8 @@ const signup = async (req, res) => {
 }
 
 const login = async (req, res) => {
+  console.log('JWT_SECRET:', process.env.JWT_SECRET);
+  
     const { email, password } = req.body;
   //  1) Check if email and password exist
   if (!email || !password) {
