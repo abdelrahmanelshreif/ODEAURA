@@ -62,7 +62,14 @@ userSchema.pre('save', async function (next) {
   next()
 })
 
+
 // static method : a user defined method defined on the schema that can be called on the model itself,
+userSchema.methods.correctPassword = async function(
+  candidatePassword,
+  userPassword
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 // rather than on an instance of the model
 userSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email }) // this = User model
