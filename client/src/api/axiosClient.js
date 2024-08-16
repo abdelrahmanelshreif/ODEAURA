@@ -6,9 +6,7 @@ axios.defaults.withCredentials = true;
 const setToken = (token) => {
   // Example using cookies
   document.cookie = `login_token=${token}; path=/; HttpOnly; Secure; SameSite=None`;
-  
-  // // Alternatively, use local storage
-  // localStorage.setItem('token', token);
+
 };
 
 
@@ -18,7 +16,7 @@ function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
-const baseUrl = 'https://odeaura-api.vercel.app';
+const baseUrl = 'https://odeaura-api.vercel.app/';
 // const baseUrl = 'http://localhost:3000/';
 
 

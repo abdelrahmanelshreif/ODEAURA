@@ -30,12 +30,7 @@ const authAPI = {
   },
 
   loginget: () => axiosClient.get('login'),
-  // verifyUser: () => axiosClient.get('me'),
-   verifyUser: () => axiosClient.get('me', {
-    headers: {
-      'Authorization': `Bearer ${getToken()}`,
-    }
-  }),
+  verifyUser: () => axiosClient.get('me'),
   logout: () => axiosClient.post('logout'),
   allUsers: () => axiosClient.get('users'),
   deleteUser: (id) => axiosClient.delete(`users/remove/${id}`),
