@@ -1,10 +1,21 @@
 const { User } = require('./../models/User')
 const jwt = require('jsonwebtoken')
 
+
+
 const getMe = (req, res) => {
-  const user = res.locals.user
-  res.json(user)
-}
+  // Access cookies directly
+  const token = req.cookies.token; // Assuming the token is stored in a cookie named 'token'
+
+  if (!token) {
+    return res.status(401).json({ message: 'No token provided' });
+  }
+
+  // Here, you might want to verify the token or fetch user information based on the token
+  // For demonstration, let's just send the token back
+  res.json({ token });
+};
+
 
 const updateMe = async (req, res, next) => {
   try {
