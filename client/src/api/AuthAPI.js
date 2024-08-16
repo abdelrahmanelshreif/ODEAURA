@@ -31,7 +31,7 @@ const authAPI = {
 
   loginget: () => axiosClient.get('login'),
   // verifyUser: () => axiosClient.get('me'),
-    verifyUser: () => axiosClient.get('me', {
+   verifyUser: () => axiosClient.get('me', {
     headers: {
       'Authorization': `Bearer ${getToken()}`,
     }
