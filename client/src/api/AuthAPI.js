@@ -1,4 +1,5 @@
 import axiosClient from './axiosClient';
+import getToken from './axiosClient';
 
 
 const authAPI = {
@@ -32,22 +33,14 @@ const authAPI = {
 
   loginget: () => axiosClient.get('login'),
   verifyUser: () => axiosClient.get('me', {
-    headers: {
-      'Authorization': `${getToken()}`,
+    cookies: {
+      'jwt': `${getToken()}`,
     }
   }),
   logout: () => axiosClient.post('logout'),
   allUsers: () => axiosClient.get('users'),
   deleteUser: (id) => axiosClient.delete(`users/remove/${id}`),
 };
-
-
-const getToken = () => {
-  // Example using cookies
-  const matches = document.cookie.match(new RegExp('(^| )jwt=([^;]+)'));
-  if (matches) return matches[2];
-};
-
 
 export default authAPI;
 

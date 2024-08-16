@@ -183,10 +183,8 @@ app.get("/", (req, res) => {
 // Apply middleware to all routes
 
 // Route handling
-app.use(authRoutes);
-
 app.use(checkUser);
-
+app.use(authRoutes);
 app.use(userRoutes);
 app.use(categoryRoutes);
 app.use(productRoutes);
