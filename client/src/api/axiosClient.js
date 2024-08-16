@@ -32,7 +32,7 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(async (config) => {
   const token = getCookie('login_token');
-    if (token) {
+    if (!token) {
     setToken(token);
   }
   return config;
