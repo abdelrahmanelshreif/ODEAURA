@@ -33,7 +33,6 @@ const isAuthenticated = (req, res, next) => {
   try {
     isTokenFound(token)
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY)
-    console.log(token);
     next()
   } catch (err) {
     if (err.message === 'not authenticated') {
