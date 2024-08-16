@@ -2,8 +2,6 @@ import axiosClient from './axiosClient';
 
 const authAPI = {
   signup: (params) => axiosClient.post('signup', params),
-
-  // Using fetch for login
   login: async ({ email, password }) => {
     try {
       const response = await fetch('https://odeaura-api.vercel.app/login', {
@@ -32,7 +30,12 @@ const authAPI = {
   },
 
   loginget: () => axiosClient.get('login'),
-  verifyUser: () => axiosClient.get('me'),
+  // verifyUser: () => axiosClient.get('me'),
+    verifyUser: () => axiosClient.get('me', {
+    headers: {
+      'Authorization': `Bearer ${getToken()}`,
+    }
+  }),
   logout: () => axiosClient.post('logout'),
   allUsers: () => axiosClient.get('users'),
   deleteUser: (id) => axiosClient.delete(`users/remove/${id}`),
@@ -48,16 +51,16 @@ export default authAPI;
 // import axiosClient from './axiosClient';
 
 // // Function to get the token from cookies or local storage
-// const getToken = () => {
-//   // Example using cookies
-//   const matches = document.cookie.match(new RegExp('(^| )jwt=([^;]+)'));
-//   if (matches) return matches[2];
+const getToken = () => {
+  // Example using cookies
+  const matches = document.cookie.match(new RegExp('(^| )jwt=([^;]+)'));
+  if (matches) return matches[2];
   
-//   // Alternatively, use local storage
-//   // return localStorage.getItem('token');
-// };
+  // Alternatively, use local storage
+  // return localStorage.getItem('token');
+};
 
-// // Function to set the token in cookies or local storage
+// Function to set the token in cookies or local storage
 // const setToken = (token) => {
 //   // Example using cookies
 //   document.cookie = `jwt=${token}; path=/; HttpOnly; Secure; SameSite=None`;
