@@ -33,7 +33,7 @@ const authAPI = {
   // verifyUser: () => axiosClient.get('me'),
     verifyUser: () => axiosClient.get('me', {
     headers: {
-      'Authorization': `Bearer ${getToken()}`,
+      'Authorization': `${localStorage.getItem('token')}`,
     }
   }),
   logout: () => axiosClient.post('logout'),
