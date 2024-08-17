@@ -1,4 +1,6 @@
 import axiosClient from './axiosClient';
+import Cookies from 'js-cookie';
+
 
 const authAPI = {
   signup: (params) => axiosClient.post('signup', params),
@@ -31,11 +33,20 @@ const authAPI = {
 
   loginget: () => axiosClient.get('login'),
   // verifyUser: () => axiosClient.get('me'),
-   verifyUser: () => axiosClient.get('me', {
-    headers: {
-      'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YmQ2Y2ZlNzIzNGU1OTRjNTdiNWQzMCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjM4NTY0MTEsImV4cCI6MTcyMzk0MjgxMX0.M4EgAPEZEKFLrtnZCpR9lnTarxH7esg9BZ5xzIR_sGQ',
+
+  verifyUser: () => {
+    const token = Cookies.get('login_token'); // Retrieve the token from cookies
+  
+    if (!token) {
+      return Promise.reject(new Error('No token found in cookies'));
     }
-  }),
+  
+    return axiosClient.get('me', {
+      headers: {
+        'Authorization': `Bearer ${token}`, // Use the token in the Authorization header
+      }
+    });
+  };
   logout: () => axiosClient.post('logout'),
   allUsers: () => axiosClient.get('users'),
   deleteUser: (id) => axiosClient.delete(`users/remove/${id}`),
