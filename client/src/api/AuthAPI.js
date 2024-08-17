@@ -1,6 +1,14 @@
 import axiosClient from './axiosClient';
 import Cookies from 'js-cookie';
 
+const setToken = (token) => {
+  // Example using cookies
+  document.cookie = `login_token=${token}; path=/; HttpOnly; Secure; SameSite=None`;
+  
+  // // Alternatively, use local storage
+  // localStorage.setItem('token', token);
+};
+
 
 const authAPI = {
   signup: (params) => axiosClient.post('signup', params),
@@ -24,7 +32,9 @@ const authAPI = {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      return await response.json();
+      const data = await response.json();
+      setToken(data.token);
+      return data;
     } catch (error) {
       console.error('Login error:', error);
       throw error;
