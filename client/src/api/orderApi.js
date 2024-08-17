@@ -1,10 +1,18 @@
 import axiosClient from './axiosClient'
 
 const orderApi = {
-  addOrder: (params) => axiosClient.post('orders/add', params),
-  getMyOrders: () => axiosClient.get('myorders'),
-  getAllOrders: () => axiosClient.get('orders'),
-  deleteOrder: (id) => axiosClient.delete(`orders/delete/${id}`),
+  addOrder: (params) => axiosClient.post('orders/add', params,{
+    credentials:true
+  }),
+  getMyOrders: () => axiosClient.get('myorders',{
+    credentials:true
+  }),
+  getAllOrders: () => axiosClient.get('orders',{
+    credentials:true
+  }),
+  deleteOrder: (id) => axiosClient.delete(`orders/delete/${id}`,{
+    credentials:true
+  }),
 }
 
 export default orderApi

@@ -1,7 +1,12 @@
 import axiosClient from './axiosClient';
 
 const authAPI = {
+
+
+
   signup: (params) => axiosClient.post('signup', params),
+  
+  
   login: async ({ email, password }) => {
     try {
       const response = await fetch('https://odeaura-api.vercel.app/login', {
@@ -14,8 +19,7 @@ const authAPI = {
           // 'Origin': 'http://localhost:3000' 
         },
         body: JSON.stringify({ email, password }),
-        credentials: 'include' // Important to include cookies
-
+        credentials: 'include'
       });
 
       if (!response.ok) {
@@ -32,13 +36,18 @@ const authAPI = {
   loginget: () => axiosClient.get('login'),
   // verifyUser: () => axiosClient.get('me'),
    verifyUser: () => axiosClient.get('me', {
-    headers: {
-      'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YmQ2Y2ZlNzIzNGU1OTRjNTdiNWQzMCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjM4NTY0MTEsImV4cCI6MTcyMzk0MjgxMX0.M4EgAPEZEKFLrtnZCpR9lnTarxH7esg9BZ5xzIR_sGQ',
-    }
+    credentials:'include'
+    // headers: {
+    //   'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YmQ2Y2ZlNzIzNGU1OTRjNTdiNWQzMCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjM4NTY0MTEsImV4cCI6MTcyMzk0MjgxMX0.M4EgAPEZEKFLrtnZCpR9lnTarxH7esg9BZ5xzIR_sGQ',
+    // }
   }),
   logout: () => axiosClient.post('logout'),
-  allUsers: () => axiosClient.get('users'),
-  deleteUser: (id) => axiosClient.delete(`users/remove/${id}`),
+  allUsers: () => axiosClient.get('users',{
+    credentials:true
+  }),
+  deleteUser: (id) => axiosClient.delete(`users/remove/${id}`,{
+    credentials:true
+  }),
 };
 
 export default authAPI;

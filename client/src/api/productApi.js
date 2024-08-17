@@ -1,15 +1,31 @@
 import axiosClient from './axiosClient'
 
 const productApi = {
-  getAllProducts: () => axiosClient.get('availableProducts'),
-  getProductById: (id) => axiosClient.get(`products/${id}`),
-  adminProduts: () => axiosClient.get('allProducts'),
+  getAllProducts: () => axiosClient.get('availableProducts',{
+    credentials:true
+  }),
+  getProductById: (id) => axiosClient.get(`products/${id}`,{
+    credentials:true
+  }),
+  adminProduts: () => axiosClient.get('allProducts',{
+    credentials:true
+  }),
   availabilityChange: (id, params) =>
-    axiosClient.put(`products/update/${id}`, params),
-  addProduct: (params) => axiosClient.post('products/add', params),
-  editProduct: (id, params) => axiosClient.put(`products/update/${id}`, params),
-  deleteProduct: (id) => axiosClient.delete(`products/delete/${id}`),
-  catProducts: (id) => axiosClient.get(`categories/${id}`),
+    axiosClient.put(`products/update/${id}`, params,{
+      credentials:true
+    }),
+  addProduct: (params) => axiosClient.post('products/add', params,{
+    credentials:true
+  }),
+  editProduct: (id, params) => axiosClient.put(`products/update/${id}`, params,{
+    credentials:true
+  }),
+  deleteProduct: (id) => axiosClient.delete(`products/delete/${id}`,{
+    credentials:true
+  }),
+  catProducts: (id) => axiosClient.get(`categories/${id}`,{
+    credentials:true
+  }),
 }
 
 export default productApi

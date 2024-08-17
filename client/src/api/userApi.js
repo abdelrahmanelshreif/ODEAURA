@@ -1,7 +1,9 @@
 import axiosClient from './axiosClient'
 
 const UserApi = {
-  UpdateMe: (params) => axiosClient.put('updateMe', params),
+  UpdateMe: (params) => axiosClient.put('updateMe', params,{
+    credentials:true
+  }),
 }
 
 export default UserApi

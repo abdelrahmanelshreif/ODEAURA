@@ -1,10 +1,18 @@
 import axiosClient from './axiosClient'
 
 const catApi = {
-  allCat: () => axiosClient.get('categories'),
-  editCat: (id, params) => axiosClient.put(`categories/update/${id}`, params),
-  deleteCat: (id) => axiosClient.delete(`categories/delete/${id}`),
-  addCat: (params) => axiosClient.post('categories/add', params),
+  allCat: () => axiosClient.get('categories',{
+    credentials:true
+  }),
+  editCat: (id, params) => axiosClient.put(`categories/update/${id}`, params,{
+    credentials:true
+  }),
+  deleteCat: (id) => axiosClient.delete(`categories/delete/${id}`,{
+    credentials:true
+  }),
+  addCat: (params) => axiosClient.post('categories/add', params,{
+    credentials:true
+  }),
 }
 
 export default catApi
