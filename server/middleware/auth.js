@@ -8,8 +8,7 @@ const isTokenFound = (token) => {
 
 // middlewares
 const checkUser = async (req, res, next) => {
-  const token = req.cookies.login_token;
-
+  const token = req.cookies.jwt
   if (!token) {
     res.locals.user = null
     return next()
@@ -30,8 +29,8 @@ const checkUser = async (req, res, next) => {
 }
 
 const isAuthenticated = (req, res, next) => {
-  // const token = getJWTFromCookie(req.cookie);
   const token = req.cookies.login_token;
+
   if (!token) {
     return res.status(401).json({ error: 'Not authenticated, token missing' });
   }
@@ -58,9 +57,7 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 const isAdmin = async (req, res, next) => {
-  // const token = getJWTFromCookie(req.cookie);
-  const token = req.cookies.login_token;
-  
+  const token = req.cookies.jwt
   try {
     isTokenFound(token)
     const { isAdmin } = jwt.verify(token, process.env.SECRET_KEY)
