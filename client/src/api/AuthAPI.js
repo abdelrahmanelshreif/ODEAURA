@@ -22,6 +22,7 @@ const authAPI = {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
+      document.cookies.token = response.token 
       return await response.json();
     } catch (error) {
       console.error('Login error:', error);
@@ -29,34 +30,34 @@ const authAPI = {
     }
   },
 
-  // loginget: () => axiosClient.get('login'),
+  loginget: () => axiosClient.get('login'),
 
-  loginget:async ({ email, password }) => {
-    try {
-      const response = await fetch('https://odeaura-api.vercel.app/login', {
-      // const response = await fetch('http://localhost:3000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json, text/plain, */*',
-          'Origin': 'https://odeaura.vercel.app'
-          // 'Origin': 'http://localhost:3000' 
-        },
-        body: JSON.stringify({ email, password }),
-        credentials: 'include' // Important to include cookies
+  // loginget:async ({ email, password }) => {
+  //   try {
+  //     const response = await fetch('https://odeaura-api.vercel.app/login', {
+  //     // const response = await fetch('http://localhost:3000/login', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Accept': 'application/json, text/plain, */*',
+  //         'Origin': 'https://odeaura.vercel.app'
+  //         // 'Origin': 'http://localhost:3000' 
+  //       },
+  //       body: JSON.stringify({ email, password }),
+  //       credentials: 'include' // Important to include cookies
 
-      });
+  //     });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
 
-      return await response.json();
-    } catch (error) {
-      console.error('Login error:', error);
-      throw error;
-    }
-  },
+  //     return await response.json();
+  //   } catch (error) {
+  //     console.error('Login error:', error);
+  //     throw error;
+  //   }
+  // },
 
   // verifyUser: () => axiosClient.get('me'),
    verifyUser: async () => {
@@ -66,8 +67,8 @@ const authAPI = {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json, text/plain, */*',
-          'Origin': 'https://odeaura.vercel.app'
+          'Origin': 'https://odeaura.vercel.app',
+          // 'Authorization': ''
           // 'Origin': 'http://localhost:3000' 
         },
         credentials: 'include' // Important to include cookies
