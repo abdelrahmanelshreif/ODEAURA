@@ -8,11 +8,7 @@ const isTokenFound = (token) => {
 
 // middlewares
 const checkUser = async (req, res, next) => {
-  const cookieString=req.headers['Cookie']
-  const cookieArray = cookieString.split(';');
-  const tokenCookie = cookieArray.find(cookie => cookie.trim().startsWith('login_token='));
-
-  const token = tokenCookie ? tokenCookie.split('=')[1].trim() : null;
+  const token = req.cookies.login_token;
 
   if (!token) {
     res.locals.user = null
@@ -35,13 +31,7 @@ const checkUser = async (req, res, next) => {
 
 const isAuthenticated = (req, res, next) => {
   // const token = getJWTFromCookie(req.cookie);
-
-  const cookieString=req.headers['Cookie']
-  const cookieArray = cookieString.split(';');
-  const tokenCookie = cookieArray.find(cookie => cookie.trim().startsWith('login_token='));
-
-  const token = tokenCookie ? tokenCookie.split('=')[1].trim() : null;
-
+  const token = req.cookies.login_token;
   if (!token) {
     return res.status(401).json({ error: 'Not authenticated, token missing' });
   }
@@ -69,14 +59,7 @@ const isAuthenticated = (req, res, next) => {
 };
 const isAdmin = async (req, res, next) => {
   // const token = getJWTFromCookie(req.cookie);
-
-
-  const cookieString=req.headers['Cookie']
-  const cookieArray = cookieString.split(';');
-  const tokenCookie = cookieArray.find(cookie => cookie.trim().startsWith('login_token='));
-
-  const token = tokenCookie ? tokenCookie.split('=')[1].trim() : null;
-
+  const token = req.cookies.login_token;
   
   try {
     isTokenFound(token)
