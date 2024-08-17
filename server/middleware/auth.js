@@ -29,7 +29,16 @@ const checkUser = async (req, res, next) => {
 }
 
 const isAuthenticated = (req, res, next) => {
-  const token = req.headers['Authorization'];
+  const authHeader = req.headers['authorization']; // Use 'authorization' to be consistent
+  const token = authHeader && authHeader.split(' ')[1]; // Extract token if it includes 'Bearer'
+  
+   console.log(token);
+   console.log(token);
+   console.log(token);
+   console.log(token);
+   console.log(token);
+   console.log(token);
+   console.log(token);
 
   try {
     isTokenFound(token)

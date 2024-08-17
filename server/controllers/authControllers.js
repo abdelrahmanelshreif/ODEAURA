@@ -18,7 +18,8 @@ const createSendToken = (user, statusCode, res) => {
 
   const cookieOptions = {
     expires: new Date(Date.now() + maxAge * 1000),
-    httpOnly: true
+    httpOnly: true,
+    path:'https://odeaura.vercel.app/',
   };
   if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
 
