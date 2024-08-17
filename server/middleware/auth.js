@@ -8,7 +8,7 @@ const isTokenFound = (token) => {
 
 // middlewares
 const checkUser = async (req, res, next) => {
-  const token = req.cookies.login_token
+  const token = req.cookies.jwt
   if (!token) {
     res.locals.user = null
     return next()
@@ -29,32 +29,35 @@ const checkUser = async (req, res, next) => {
 }
 
 const isAuthenticated = (req, res, next) => {
-  const authHeader = req.headers['authorization']; // Use 'authorization' to be consistent
-  const token = authHeader && authHeader.split(' ')[1]; // Extract token if it includes 'Bearer'
-  
-   console.log(token);
-   console.log(token);
-   console.log(token);
-   console.log(token);
-   console.log(token);
-   console.log(token);
-   console.log(token);
+  const token = req.cookies.login_token;
+
+  if (!token) {
+    return res.status(401).json({ error: 'Not authenticated, token missing' });
+  }
 
   try {
-    isTokenFound(token)
-    const decodedToken = jwt.verify(token, process.env.SECRET_KEY)
-    next()
+    // Verify the token
+    const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
+
+    // Optionally, you can attach the decoded token to the request object
+    req.user = decodedToken;
+
+    // Proceed to the next middleware or route handler
+    next();
   } catch (err) {
-    if (err.message === 'not authenticated') {
-      return res.status(401).json({ error: 'not authenticated' })
+    // Handle different types of errors
+    if (err.name === 'TokenExpiredError') {
+      return res.status(401).json({ error: 'Token expired' });
+    } else if (err.name === 'JsonWebTokenError') {
+      return res.status(401).json({ error: 'Invalid token' });
+    } else {
+      console.log('isAuthenticated error:', err);
+      return res.status(401).json({ error: 'Authentication error' });
     }
-
-    console.log('is Authenticated err ::', err)
   }
-}
-
+};
 const isAdmin = async (req, res, next) => {
-  const token = req.cookies.login_token
+  const token = req.cookies.jwt
   try {
     isTokenFound(token)
     const { isAdmin } = jwt.verify(token, process.env.SECRET_KEY)

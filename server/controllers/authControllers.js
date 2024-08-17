@@ -19,12 +19,21 @@ const createSendToken = (user, statusCode, res) => {
   const cookieOptions = {
     expires: new Date(Date.now() + maxAge * 1000),
     httpOnly: true,
-    path:'https://odeaura.vercel.app/',
+    path: '/', // Set path to root to make the cookie available across the domain
   };
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+
+  // Add secure flag only in production environment
+  if (process.env.NODE_ENV === 'production') {
+    cookieOptions.secure = true; // Ensure the cookie is only sent over HTTPS
+    cookieOptions.sameSite = 'None'; // Allows the cookie to be sent cross-site
+  }
 
   user.password = undefined; // Hide password in the response
+
+  // Set the cookie
   res.cookie('login_token', token, cookieOptions);
+  
+  // Send response
   res.status(statusCode).json({
     status: 'success',
     token,
@@ -37,6 +46,7 @@ const createSendToken = (user, statusCode, res) => {
     createdAt: user.createdAt // Include createdAt
   });
 };
+
 
 const signup = async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
