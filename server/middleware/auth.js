@@ -15,7 +15,7 @@ const isTokenFound = (token) => {
 
 // middlewares
 const checkUser = async (req, res, next) => {
-  const token = getJWTFromCookie(req.cookie);
+  const token = getJWTFromCookie(req.headers['Cookie']);
   if (!token) {
     res.locals.user = null
     return next()
