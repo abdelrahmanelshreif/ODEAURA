@@ -1,37 +1,4 @@
-// import axiosClient from './axiosClient';
-
-import axios from 'axios';
-import queryString from 'query-string';
-
-const axiosClient = axios.create({
-  baseURL: 'https://odeaura-api.vercel.app',
-  withCredentials: true, // This enables sending cookies with requests
-  headers: {
-    'content-type': 'application/json'
-  },
-  paramsSerializer: (params) => queryString.stringify(params),
-});
-
-axiosClient.interceptors.request.use((config) => {
-  const token = getCookie('login_token');
-  if (token) {
-    // Assuming setToken is a function that sets the Authorization header or similar
-    config.headers['Authorization'] = `Bearer ${token}`; // Set the token in the Authorization header
-  }
-  return config;
-}, (error) => {
-  return Promise.reject(error);
-});
-
-
-
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
-
-
+import axiosClient from './axiosClient';
 
 const authAPI = {
   signup: (params) => axiosClient.post('signup', params),
@@ -63,7 +30,12 @@ const authAPI = {
   },
 
   loginget: () => axiosClient.get('login'),
-  verifyUser: () => axiosClient.get('me'),
+  // verifyUser: () => axiosClient.get('me'),
+   verifyUser: () => axiosClient.get('me', {
+    headers: {
+      'Authorization': `Bearer ${getToken()}`,
+    }
+  }),
   logout: () => axiosClient.post('logout'),
   allUsers: () => axiosClient.get('users'),
   deleteUser: (id) => axiosClient.delete(`users/remove/${id}`),
