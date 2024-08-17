@@ -8,7 +8,7 @@ const isTokenFound = (token) => {
 
 // middlewares
 const checkUser = async (req, res, next) => {
-  const token = req.cookies.login_token
+  const token = req.cookies.login_token;
   if (!token) {
     res.locals.user = null
     return next()
@@ -57,7 +57,7 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 const isAdmin = async (req, res, next) => {
-  const token = req.cookies.login_token
+  const token = req.cookies.login_token;
   try {
     isTokenFound(token)
     const { isAdmin } = jwt.verify(token, process.env.SECRET_KEY)
