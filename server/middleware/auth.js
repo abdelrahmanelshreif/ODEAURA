@@ -41,7 +41,7 @@ const isAuthenticated = (req, res, next) => {
 
     // Optionally, you can attach the decoded token to the request object
     req.user = decodedToken;
-
+    res.locals.user = decodedToken;
     // Proceed to the next middleware or route handler
     next();
   } catch (err) {
