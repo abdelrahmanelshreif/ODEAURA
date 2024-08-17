@@ -1,13 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { User } = require('./../models/User')
 
-
-function getJWTFromCookie(cookieString) {
-  const cookieArray = cookieString.split(';');
-  const tokenCookie = cookieArray.find(cookie => cookie.trim().startsWith('login_token='));
-  return tokenCookie ? tokenCookie.split('=')[1].trim() : null;
-}
-
 // helper functions
 const isTokenFound = (token) => {
   if (!token) throw Error('not authenticated')
@@ -15,7 +8,12 @@ const isTokenFound = (token) => {
 
 // middlewares
 const checkUser = async (req, res, next) => {
-  const token = getJWTFromCookie(req.headers['Cookie']);
+  const cookieString=req.headers['Cookie']
+  const cookieArray = cookieString.split(';');
+  const tokenCookie = cookieArray.find(cookie => cookie.trim().startsWith('login_token='));
+
+  const token = tokenCookie ? tokenCookie.split('=')[1].trim() : null;
+
   if (!token) {
     res.locals.user = null
     return next()
@@ -36,7 +34,13 @@ const checkUser = async (req, res, next) => {
 }
 
 const isAuthenticated = (req, res, next) => {
-  const token = getJWTFromCookie(req.cookie);
+  // const token = getJWTFromCookie(req.cookie);
+
+  const cookieString=req.headers['Cookie']
+  const cookieArray = cookieString.split(';');
+  const tokenCookie = cookieArray.find(cookie => cookie.trim().startsWith('login_token='));
+
+  const token = tokenCookie ? tokenCookie.split('=')[1].trim() : null;
 
   if (!token) {
     return res.status(401).json({ error: 'Not authenticated, token missing' });
@@ -64,7 +68,16 @@ const isAuthenticated = (req, res, next) => {
   }
 };
 const isAdmin = async (req, res, next) => {
-  const token = getJWTFromCookie(req.cookie);
+  // const token = getJWTFromCookie(req.cookie);
+
+
+  const cookieString=req.headers['Cookie']
+  const cookieArray = cookieString.split(';');
+  const tokenCookie = cookieArray.find(cookie => cookie.trim().startsWith('login_token='));
+
+  const token = tokenCookie ? tokenCookie.split('=')[1].trim() : null;
+
+  
   try {
     isTokenFound(token)
     const { isAdmin } = jwt.verify(token, process.env.SECRET_KEY)
