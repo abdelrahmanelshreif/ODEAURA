@@ -46,7 +46,7 @@ const authAPI = {
         'Authorization': `Bearer ${token}`, // Use the token in the Authorization header
       }
     });
-  };
+  },
   logout: () => axiosClient.post('logout'),
   allUsers: () => axiosClient.get('users'),
   deleteUser: (id) => axiosClient.delete(`users/remove/${id}`),
