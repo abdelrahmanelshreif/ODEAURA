@@ -1,14 +1,4 @@
 import axiosClient from './axiosClient';
-import Cookies from 'js-cookie';
-
-const setToken = (token) => {
-  // Example using cookies
-  document.cookie = `login_token=${token}; path=/; HttpOnly; Secure; SameSite=None`;
-  
-  // // Alternatively, use local storage
-  // localStorage.setItem('token', token);
-};
-
 
 const authAPI = {
   signup: (params) => axiosClient.post('signup', params),
@@ -32,9 +22,7 @@ const authAPI = {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      const data = await response.json();
-      setToken(data.token);
-      return data;
+      return await response.json();
     } catch (error) {
       console.error('Login error:', error);
       throw error;
@@ -43,20 +31,11 @@ const authAPI = {
 
   loginget: () => axiosClient.get('login'),
   // verifyUser: () => axiosClient.get('me'),
-
-  verifyUser: () => {
-    const token = Cookies.get('login_token'); // Retrieve the token from cookies
-  
-    if (!token) {
-      return Promise.reject(new Error('No token found in cookies'));
+   verifyUser: () => axiosClient.get('me', {
+    headers: {
+      'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YmQ2Y2ZlNzIzNGU1OTRjNTdiNWQzMCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjM4NTY0MTEsImV4cCI6MTcyMzk0MjgxMX0.M4EgAPEZEKFLrtnZCpR9lnTarxH7esg9BZ5xzIR_sGQ',
     }
-  
-    return axiosClient.get('me', {
-      headers: {
-        'Authorization': `Bearer ${token}`, // Use the token in the Authorization header
-      }
-    });
-  },
+  }),
   logout: () => axiosClient.post('logout'),
   allUsers: () => axiosClient.get('users'),
   deleteUser: (id) => axiosClient.delete(`users/remove/${id}`),

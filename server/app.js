@@ -20,7 +20,7 @@ const corsOptions = {
   origin: ['https://odeaura.vercel.app', 'http://localhost:5173'], // Allow frontend origins
   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'], // Allow necessary methods
   credentials: true, // Allow cookies and credentials
-  allowedHeaders: ['X-CSRF-Token', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization','jwt','token'] // Allow necessary headers
+  allowedHeaders: ['X-CSRF-Token', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization','jwt','token','Origin'] // Allow necessary headers
 };
 
 // Apply CORS middleware
