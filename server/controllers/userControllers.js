@@ -2,23 +2,20 @@ const { User } = require('./../models/User')
 const jwt = require('jsonwebtoken')
 
 const getMe = (req, res) => {
-  // Access cookies directly
-  const token = req.cookies.token; // Assuming the token is stored in a cookie named 'token'
+  const user = res.locals.user
+  res.json(user)
+}
 
-  if (!token) {
-    return res.status(401).json({ message: 'No token provided' });
-  }
-  // Here, you might want to verify the token or fetch user information based on the token
-  // For demonstration, let's just send the token back
-  res.json({ token });
-};
 const updateMe = async (req, res, next) => {
   try {
     const token = req.cookies.jwt
     const { id } = jwt.verify(token, process.env.SECRET_KEY)
+
     const user = await User.findById(id)
+
     if (user) {
       let updatedUserFields = req.body
+
       Object.keys(updatedUserFields).forEach((key) => {
         if (
           updatedUserFields[key] === '' ||
@@ -27,14 +24,17 @@ const updateMe = async (req, res, next) => {
           delete updatedUserFields[key]
         }
       })
+
       const result = await User.updateOne({ _id: user._id }, updatedUserFields)
       if (!result.acknowledged) {
         return res
           .status(500)
           .json({ message: 'Failed to update profile info' })
       }
+
       const updatedUser = await User.findById(id)
       delete updatedUser._doc.password
+
       res.json({
         message: 'Profile updated successfully.',
         user: updatedUser,
@@ -47,9 +47,11 @@ const updateMe = async (req, res, next) => {
     return res.status(500).json({ message: 'Internal server error.' })
   }
 }
+
 const removeUser = async (req, res) => {
   const id = req.params.id
   const user = await User.findOne({ _id: id })
+
   if (user) {
     try {
       const result = await User.deleteOne({ _id: id })
@@ -65,16 +67,19 @@ const removeUser = async (req, res) => {
     res.status(404).send('User not found.')
   }
 }
+
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find()
     users.forEach((user) => {
       delete user._doc.password
     })
+
     res.json(users)
   } catch (err) {
     console.log(err)
     return res.status(500).json({ message: 'Internal server error.' })
   }
 }
+
 module.exports = { getMe, updateMe, getAllUsers, removeUser }
