@@ -32,9 +32,7 @@ const authAPI = {
   loginget: () => axiosClient.get('login'),
   // verifyUser: () => axiosClient.get('me'),
    verifyUser: () => axiosClient.get('me', {
-    headers: {
-      'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YmQ2Y2ZlNzIzNGU1OTRjNTdiNWQzMCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjM4NTY0MTEsImV4cCI6MTcyMzk0MjgxMX0.M4EgAPEZEKFLrtnZCpR9lnTarxH7esg9BZ5xzIR_sGQ',
-    }
+    credentials:'incldude'
   }),
   logout: () => axiosClient.post('logout'),
   allUsers: () => axiosClient.get('users'),
