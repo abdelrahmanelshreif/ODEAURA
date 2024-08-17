@@ -22,7 +22,6 @@ const authAPI = {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      document.cookies.token = response.token 
       return await response.json();
     } catch (error) {
       console.error('Login error:', error);
@@ -30,61 +29,15 @@ const authAPI = {
     }
   },
 
+  // loginget: () => axiosClient.get('login'),
   loginget: () => axiosClient.get('login'),
+  
 
-  // loginget:async ({ email, password }) => {
-  //   try {
-  //     const response = await fetch('https://odeaura-api.vercel.app/login', {
-  //     // const response = await fetch('http://localhost:3000/login', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Accept': 'application/json, text/plain, */*',
-  //         'Origin': 'https://odeaura.vercel.app'
-  //         // 'Origin': 'http://localhost:3000' 
-  //       },
-  //       body: JSON.stringify({ email, password }),
-  //       credentials: 'include' // Important to include cookies
-
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
-
-  //     return await response.json();
-  //   } catch (error) {
-  //     console.error('Login error:', error);
-  //     throw error;
-  //   }
-  // },
-
-  // verifyUser: () => axiosClient.get('me'),
-   verifyUser: async () => {
-    try {
-      const response = await fetch('https://odeaura-api.vercel.app/me', {
-      // const response = await fetch('http://localhost:3000/me', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Origin': 'https://odeaura.vercel.app',
-          // 'Authorization': ''
-          // 'Origin': 'http://localhost:3000' 
-        },
-        credentials: 'include' // Important to include cookies
-
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      return await response.json();
-    } catch (error) {
-      console.error('After Login error:', error);
-      throw error;
+  verifyUser: () => axiosClient.get('me', {
+    headers: {
+      'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2YmQ2Y2ZlNzIzNGU1OTRjNTdiNWQzMCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MjM4NTU2MzAsImV4cCI6MTcyMzk0MjAzMH0.QaIHzJ1K8X8Hui9JiTPa_ahKBSMZnkXX1MkVdNZKjXE',
     }
-  },
+  }),
   logout: () => axiosClient.post('logout'),
   allUsers: () => axiosClient.get('users'),
   deleteUser: (id) => axiosClient.delete(`users/remove/${id}`),
