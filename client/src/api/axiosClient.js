@@ -12,7 +12,7 @@ const setToken = (token) => {
 };
 
 
-const baseUrl = 'https://odeaura-api.vercel.app';
+const baseUrl = 'https://odeaura-api.vercel.app/';
 // const baseUrl = 'http://localhost:3000/';
 
 
