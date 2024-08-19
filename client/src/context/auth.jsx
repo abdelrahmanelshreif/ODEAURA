@@ -27,7 +27,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     user: null,
-    token: localStorage.get('login_token') || '', // Load token from cookies initially
+    token: Cookies.get('login_token') || '', // Load token from cookies initially
   });
 
   return (
