@@ -4,15 +4,15 @@ const Reviews = () => {
   const reviews = [
     {
       text: 'صراحة الثابت ما شاءالله',
-      name: 'منصور',
+      name: ' محمد منصور',
       rating: 5,
-      location: 'الرياض'
+      // location: 'الرياض'
     },
     {
       text: 'جميل',
-      name: 'بدر البيشي',
+      name: 'بدر رامي',
       rating: 4,
-      location: 'الرياض'
+      // location: 'الرياض'
     },  
   ];
 

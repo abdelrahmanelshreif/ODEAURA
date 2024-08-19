@@ -17,6 +17,7 @@ import cartApi from '../api/cartApi';
 import { useCart } from '../context/cartctx';
 import { useAuth } from '../context/auth';
 import { Link, useNavigate } from 'react-router-dom';
+import { fullLogo } from '../assets';
 
 const useStyles = createStyles((theme) => ({
   card: {
@@ -144,7 +145,12 @@ const ProductCard = (props) => {
     >
       <Card.Section>
         <Link to={`/products/${props.id}`}>
-          <Image src={props.image[0]} alt={props.title} height={380} />
+        <Image 
+          src={props.image[0]} 
+          alt={props.title} 
+          width="100%"  // Takes up the full width of its container
+          height="auto" // Adjusts height to maintain the aspect ratio
+        />
         </Link>
       </Card.Section>
 

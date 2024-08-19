@@ -72,7 +72,7 @@ const ProductCardAdmin = (props) => {
 
         <td>
           <Group className="text-lg" spacing={0} position="left">
-            <p>${item?.price}</p>
+            <p>{item?.price} EGP</p>
           </Group>
         </td>
 

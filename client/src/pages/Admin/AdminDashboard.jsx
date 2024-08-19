@@ -66,7 +66,7 @@ const AdminDashboard = () => {
             <p className="text-left font-medium text-lg text-[#027A48]">Total Sales</p>
           </span>
           <p className="text-left font-semibold text-2xl md:text-4xl text-[#054F31]">
-            ${totSales ? totSales.toFixed(2) : 0}
+            {totSales ? totSales.toFixed(2) : 0} EGP
           </p>
         </div>
 

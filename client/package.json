@@ -13,6 +13,7 @@
     "@cloudinary/react": "^1.11.2",
     "@cloudinary/url-gen": "^1.10.0",
     "@emotion/react": "^11.11.0",
+    "@heroicons/react": "^2.1.5",
     "@mantine/carousel": "^6.0.11",
     "@mantine/core": "^6.0.11",
     "@mantine/form": "^6.0.11",

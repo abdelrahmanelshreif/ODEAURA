@@ -143,9 +143,11 @@ const AdminLayout = () => {
       <Navbar className="h-full" width={{ sm: 300 }} p="md">
         <Navbar.Section grow>
           <Group className={classes.header} position="apart">
-            <img src={fullLogo} alt="logo" className="h-8" />
+            <Link to="/"> {/* Add Link component to handle navigation */}
+              <img src={fullLogo} alt="logo" className="h-16" />
+            </Link>
 
-            <Code sx={{ fontWeight: 700 }}>v1.0.0</Code>
+            <Code sx={{ fontWeight: 700 }}></Code>
           </Group>
           {links}
         </Navbar.Section>

@@ -1,41 +1,34 @@
-import React, { useEffect } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { TickConfirm } from '../../../assets'
-import { Button } from '@mantine/core'
+import React, { useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { TickConfirm } from '../../../assets';
+import { Button } from '@mantine/core';
 
 const ConfirmOrder = () => {
-  const location = useLocation()
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Redirect to home if orderId is not present
     if (!location.state?.orderId) {
-      navigate('/')
+      navigate('/');
     }
-  }, [navigate, location.state])
-
-  const goToOrders = () => {
-    // Navigate to /myaccount with state
-    navigate('/myaccount', {
-      state: { id: 1, activated: 2 },
-    })
-  }
+  }, [navigate, location.state?.orderId]);
 
   return (
-    <div className="flex h-full flex-row justify-center items-center my-36">
-      <div className="flex flex-col justify-between items-center gap-3 bg-green-50 px-36 py-11 rounded-xl">
-        <img src={TickConfirm} alt="tick" width={100} height={100} />
-        <p className="text-lg font-semibold text-primary">
+    <div className="flex flex-col items-center p-4 min-h-screen">
+      <div className="flex flex-col items-center bg-green-50 px-8 py-6 rounded-xl shadow-md max-w-xs w-full text-center mt-16">
+        <img src={TickConfirm} alt="Order confirmation tick" width={80} height={80} />
+        <p className="text-lg font-semibold text-primary mt-4">
           Order successfully placed.
         </p>
-        <p className="text-gray-700">
-          Order code: {location.state?.orderId}
+        <p className="text-gray-700 mt-2">
+          Order code: {location.state?.orderId || 'N/A'}
         </p>
-        <Button onClick={goToOrders}>View order</Button>
-        <Link to="/">Home</Link>
+        <Button className="mt-4" onClick={() => navigate('/myaccount')}>View order</Button>
+        <Link to="/" className="text-blue-500 mt-2">Home</Link>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ConfirmOrder
+export default ConfirmOrder;

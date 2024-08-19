@@ -39,57 +39,83 @@ const Cart = () => {
   ))
   const [opened, { open, close }] = useDisclosure(false)
 
-  const confimOrderHandler = async (address) => {
-    const addTheOrder = async () => {
-      try {
-        const res = await orderApi.addOrder({
-          shippingAddress: {
-            street: address.street,
-            city: address.city,
-            state: address.state,
-            zip: address.zip,
-            country: address.country,
-            mobileNumber: address.mobileNumber
-          },
-        })
-        close()
-      } catch (err) {
-        console.log(err)
-      }
+  // const confimOrderHandler = async (address) => {
+  //   const addTheOrder = async () => {
+  //     try {
+  //       const res = await orderApi.addOrder({
+  //         shippingAddress: {
+  //           street: address.street,
+  //           city: address.city,
+  //           state: address.state,
+  //           zip: address.zip,
+  //           country: address.country,
+  //           mobileNumber: address.mobileNumber
+  //         },
+  //       })
+  //       close()
+  //     } catch (err) {
+  //       console.log(err)
+  //     }
+  //   }
+  //   addTheOrder()
+
+  //   console.log(CartProducts)
+  //   const stripe = await loadStripe('')
+
+  //   const body = {
+  //     products: CartProducts?.items,
+  //   }
+
+  //   const headres = {
+  //     'Content-Type': 'application/json',
+  //   }
+
+  //   const response = await axiosClient.post(
+  //     'cart/create-checkout-session',
+  //     body
+  //   )
+
+  //   console.log(response)
+  //   stripe
+  //     .redirectToCheckout({
+  //       sessionId: response.id,
+  //     })
+  //     .then((result) => {
+  //       addTheOrder()
+  //       if (result.error) {
+  //         alert(result.error.message)
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error(error)
+  //     })
+  // }
+
+  
+const confimOrderHandler = async (address) => {
+  try {
+    // Create the order
+    const orderResponse = await orderApi.addOrder({
+      shippingAddress: {
+        street: address.street,
+        city: address.city,
+        state: address.state,
+        zip: address.zip,
+        country: address.country,
+        mobileNumber: address.mobileNumber,
+      },
+    });
+    console.log('Order created successfully');
+    if (orderResponse && orderResponse._id) {
+      navigate(`/cart/order/confirm/${orderResponse._id}`, {
+        state: { orderId: orderResponse._id },
+      });
     }
-    addTheOrder()
-
-    console.log(CartProducts)
-    const stripe = await loadStripe('')
-
-    const body = {
-      products: CartProducts?.items,
-    }
-
-    const headres = {
-      'Content-Type': 'application/json',
-    }
-
-    const response = await axiosClient.post(
-      'cart/create-checkout-session',
-      body
-    )
-
-    console.log(response)
-    stripe
-      .redirectToCheckout({
-        sessionId: response.id,
-      })
-      .then((result) => {
-        addTheOrder()
-        if (result.error) {
-          alert(result.error.message)
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+  } catch (error) {
+    console.error('Error during order confirmation:', error);
+    alert('An error occurred during order confirmation. Please try again.');
   }
+};
 
   return (
     <>
