@@ -21,7 +21,7 @@ const createSendToken = (user, statusCode, res) => {
     httpOnly: true,
     path: '/',
     domain:'odeaura-api.vercel.app', 
-    sameSite:'Lax',
+    sameSite:'None',
     secure: true,
   };
 
