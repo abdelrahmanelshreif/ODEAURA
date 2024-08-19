@@ -20,8 +20,8 @@ const createSendToken = (user, statusCode, res) => {
     expires: new Date(Date.now() + maxAge * 1000),
     httpOnly: true,
     path: '/',
-    domain:'.vercel.app', 
-    sameSite:'None',
+    domain:'odeaura.vercel.app', 
+    sameSite:'Lax',
     secure: true,
   };
 
