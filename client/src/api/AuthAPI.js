@@ -22,7 +22,15 @@ const authAPI = {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
-      return await response.json();
+      // return await response.json();
+      const data = await response.json();
+      const token = data.token;
+
+      // Store the token in localStorage
+      localStorage.setItem('login_token', token);
+
+      // Optionally set other user data in state or localStorage
+      return data;
     } catch (error) {
       console.error('Login error:', error);
       throw error;

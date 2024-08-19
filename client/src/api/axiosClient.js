@@ -4,16 +4,16 @@ axios.defaults.withCredentials = true;
 
 // Function to set the token in cookies or local storage
 const setToken = (token) => {
-  document.cookie = `login_token=${token}; path=/; Secure; SameSite=None; domain=odeaura.vercel.app `;
-
+  // Example using cookies
+  document.cookie = `login_token=${token}; path=/; HttpOnly; Secure; SameSite=None`;
   
   // // Alternatively, use local storage
-  // localStorage.setItem('token', token);
+  localStorage.setItem('token', token);
 };
 
 
 const baseUrl = 'https://odeaura-api.vercel.app';
-// const baseUrl = 'http://localhost:3000';
+// const baseUrl = 'http://localhost:3000/';
 
 
 
@@ -27,7 +27,7 @@ const axiosClient = axios.create({
 
 
 axiosClient.interceptors.request.use(async (config) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('login_token');
     if (token) {
     setToken(token);
   }
