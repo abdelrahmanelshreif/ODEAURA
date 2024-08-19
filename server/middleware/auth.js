@@ -56,6 +56,7 @@ const isAuthenticated = (req, res, next) => {
     }
   }
 };
+
 const isAdmin = async (req, res, next) => {
   const token = req.cookies.login_token;
   try {
@@ -78,4 +79,16 @@ const isAdmin = async (req, res, next) => {
   next()
 }
 
-module.exports = { isAuthenticated, checkUser, isAdmin }
+const restrictTo = (...roles) => {
+  return (req, res, next) => {
+    // roles ['admin', 'lead-guide']. role='user'
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError('You do not have permission to perform this action', 403)
+      );
+    }
+
+    next();
+  };
+};
+module.exports = { isAuthenticated, checkUser, isAdmin ,restrictTo}

@@ -108,3 +108,13 @@ form .mantine-PasswordInput-description {
 EDITION
 */
 
+/* Product Card Edition */
+@media only screen and (max-width: 768px) {
+  .carousel-slide {
+    height: 200px; /* or any other height suitable for mobile screens */
+  }
+
+  .carousel-slide img {
+    object-fit: contain;
+  }
+}

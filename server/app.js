@@ -8,6 +8,7 @@ const productRoutes = require('./routes/productRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
 const wishlistRoutes = require('./routes/wishlistRoutes');
 const { checkUser } = require('./middleware/auth');
 const cors = require('cors');
@@ -70,6 +71,7 @@ app.use(categoryRoutes);
 app.use(productRoutes);
 app.use(cartRoutes);
 app.use(orderRoutes);
+app.use('/reviews',reviewRoutes);
 app.use(wishlistRoutes);
 
 // Error handling middleware (optional)

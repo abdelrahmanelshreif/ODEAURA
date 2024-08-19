@@ -40,6 +40,15 @@ const productSchema = new mongoose.Schema({
     type: String,
     enum: ['New Arrival', 'On Sale', 'Bestseller'],
   },
+  ratingsQuantity:{
+    type: Number,
+    default: 0,
+  },
+  ratingsAverage:{
+    type:Number,
+    default:0,
+  }
+  
 })
 
 const Product = mongoose.model('product', productSchema)

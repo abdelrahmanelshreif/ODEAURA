@@ -19,7 +19,8 @@ const createSendToken = (user, statusCode, res) => {
   const cookieOptions = {
     expires: new Date(Date.now() + maxAge * 1000),
     httpOnly: true,
-    path: '/', // Set path to root to make the cookie available across the domain
+    path: 'odeaura-api.vercel.app', 
+    sameSite:'None',
   };
 
   // Add secure flag only in production environment
