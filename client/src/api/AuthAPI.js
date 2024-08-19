@@ -13,7 +13,7 @@ const removeCookie = (cookieName) => {
 
 const authAPI = {
   // signup: (params) => axiosClient.post('signup', params),
-   signup = async (params) => {
+   signup: async (params) => {
     try {
       const response = await fetch('https://odeaura-api.vercel.app/signup', {
         method: 'POST',
@@ -42,8 +42,7 @@ const authAPI = {
       console.error('Signup error:', error);
       throw error;
     }
-  };
-  
+  },
   login: async ({ email, password }) => {
     try {
       const response = await fetch('https://odeaura-api.vercel.app/login', {

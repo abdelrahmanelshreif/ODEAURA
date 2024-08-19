@@ -177,7 +177,7 @@ import { notifications } from '@mantine/notifications'
 import { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import authAPI from '../../api/AuthAPI'
-import { setCookie } from '../../utils/cookies' // Ensure you have this utility
+import { setCookie } from '../../api/AuthAPI' // Ensure you have this utility
 
 const SignUp = () => {
   const navigate = useNavigate()
