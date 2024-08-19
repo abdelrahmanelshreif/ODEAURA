@@ -8,7 +8,7 @@ const setToken = (token) => {
   document.cookie = `login_token=${token}; path=/; HttpOnly; Secure; SameSite=None`;
   
   // // Alternatively, use local storage
-  localStorage.setItem('token', token);
+  localStorage.setItem('login_token', token);
 };
 
 
@@ -28,7 +28,7 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(async (config) => {
   const token = localStorage.getItem('login_token');
-    if (token) {
+    if (!token) {
     setToken(token);
   }
   return config;
