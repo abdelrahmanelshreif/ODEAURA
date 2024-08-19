@@ -52,6 +52,8 @@
 // export default axiosClient;
 import axios from 'axios';
 import queryString from 'query-string';
+import Cookies from 'js-cookie'; // Use js-cookie or other library for cookies management
+
 
 // Ensure cookies are sent with requests
 axios.defaults.withCredentials = true;
@@ -71,7 +73,7 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use((config) => {
   // Retrieve token from localStorage
-  const token = localStorage.getItem('login_token');
+  const token = Cookies.get('login_token');
 
   // If token exists, add it to the Authorization header
   if (token) {
