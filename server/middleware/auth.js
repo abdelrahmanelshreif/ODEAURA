@@ -31,6 +31,8 @@ const checkUser = async (req, res, next) => {
 const isAuthenticated = (req, res, next) => {
   // const token = req.cookies.login_token;
   const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1]; // Get token from 'Bearer token' format
+
 
   if (!token) {
     return res.status(401).json({ error: 'Not authenticated, token missing' });
