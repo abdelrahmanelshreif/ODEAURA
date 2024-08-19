@@ -4,9 +4,7 @@ axios.defaults.withCredentials = true;
 
 // Function to set the token in cookies or local storage
 const setToken = (token) => {
-  // Example using cookies
-  // document.cookie = `login_token=${token}; path=/; HttpOnly; Secure; SameSite=None`;
-  document.cookie = `login_token=${token}; path=/; Secure; SameSite=None; domain=odeaura-api.vercel.app `;
+  document.cookie = `login_token=${token}; path=/; Secure; SameSite=None; domain=odeaura.vercel.app `;
 
   
   // // Alternatively, use local storage
