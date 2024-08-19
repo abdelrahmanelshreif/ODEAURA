@@ -12,7 +12,38 @@ const removeCookie = (cookieName) => {
 };
 
 const authAPI = {
-  signup: (params) => axiosClient.post('signup', params),
+  // signup: (params) => axiosClient.post('signup', params),
+   signup = async (params) => {
+    try {
+      const response = await fetch('https://odeaura-api.vercel.app/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json, text/plain, */*',
+          'Origin': 'https://odeaura.vercel.app', // Set the origin for CORS
+        },
+        body: JSON.stringify(params),
+        credentials: 'include', // Important to include cookies
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      const token = data.token;
+  
+      // Set the token as a cookie
+      setCookie('login_token', token, 7); // Cookie expires in 7 days
+  
+      // Optionally set other user data in state or localStorage
+      return data;
+    } catch (error) {
+      console.error('Signup error:', error);
+      throw error;
+    }
+  };
+  
   login: async ({ email, password }) => {
     try {
       const response = await fetch('https://odeaura-api.vercel.app/login', {
