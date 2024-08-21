@@ -8,8 +8,21 @@ const getMe = (req, res) => {
 
 const updateMe = async (req, res, next) => {
   try {
-    const token = req.cookies.jwt
+
+    const authHeader = req.headers['authorization'];
+  let token;
+
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    token = authHeader.split(' ')[1];
+  }
+
+  if (!token) {
+    res.locals.user = null;
+    return next();
+  }
+
     const { id } = jwt.verify(token, process.env.SECRET_KEY)
+
 
     const user = await User.findById(id)
 

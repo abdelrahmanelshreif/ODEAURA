@@ -14,6 +14,7 @@ import CartProduct from '../components/common/Cart/CartProduct'
 import { useAuth } from '../context/auth'
 import NewAddress from '../components/common/Cart/NewAddress'
 import orderApi from '../api/orderApi'
+import userApi from '../api/userApi'
 import { useNavigate } from 'react-router-dom'
 import { loadStripe } from '@stripe/stripe-js'
 import axiosClient from '../api/axiosClient'
@@ -39,68 +40,25 @@ const Cart = () => {
   ))
   const [opened, { open, close }] = useDisclosure(false)
 
-  // const confimOrderHandler = async (address) => {
-  //   const addTheOrder = async () => {
-  //     try {
-  //       const res = await orderApi.addOrder({
-  //         shippingAddress: {
-  //           street: address.street,
-  //           city: address.city,
-  //           state: address.state,
-  //           zip: address.zip,
-  //           country: address.country,
-  //           mobileNumber: address.mobileNumber
-  //         },
-  //       })
-  //       close()
-  //     } catch (err) {
-  //       console.log(err)
-  //     }
-  //   }
-  //   addTheOrder()
-
-  //   console.log(CartProducts)
-  //   const stripe = await loadStripe('')
-
-  //   const body = {
-  //     products: CartProducts?.items,
-  //   }
-
-  //   const headres = {
-  //     'Content-Type': 'application/json',
-  //   }
-
-  //   const response = await axiosClient.post(
-  //     'cart/create-checkout-session',
-  //     body
-  //   )
-
-  //   console.log(response)
-  //   stripe
-  //     .redirectToCheckout({
-  //       sessionId: response.id,
-  //     })
-  //     .then((result) => {
-  //       addTheOrder()
-  //       if (result.error) {
-  //         alert(result.error.message)
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error(error)
-  //     })
-  // }
-
-  
 const confimOrderHandler = async (address) => {
   try {
     // Create the order
+    const NewAddressResponse = await userApi.UpdateMe({
+      shippingAddress: {
+        street: address.street,
+        city: address.city,
+        state: address.state,
+        // zip: address.zip,
+        country: address.country,
+        mobileNumber: address.mobileNumber,
+      }
+    });
     const orderResponse = await orderApi.addOrder({
       shippingAddress: {
         street: address.street,
         city: address.city,
         state: address.state,
-        zip: address.zip,
+        // zip: address.zip,
         country: address.country,
         mobileNumber: address.mobileNumber,
       },

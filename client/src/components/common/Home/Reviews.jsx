@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Carousel } from '@mantine/carousel';
+import { Image } from '@mantine/core';
+import axios from 'axios';
+import axiosClient from '../../../api/axiosClient';
 
 const Reviews = () => {
-  const reviews = [
-    {
-      text: 'صراحة الثابت ما شاءالله',
-      name: ' محمد منصور',
-      rating: 5,
-      // location: 'الرياض'
-    },
-    {
-      text: 'جميل',
-      name: 'بدر رامي',
-      rating: 4,
-      // location: 'الرياض'
-    },  
-  ];
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axiosClient.get('/reviews'); // Replace with your API endpoint
+        setReviews(response.data.data);
+      } catch (error) {
+        console.error('Failed to fetch reviews:', error);
+      }
+    };
+
+    fetchReviews();
+  }, []);
 
   const renderStars = (rating) => {
     const stars = [];
@@ -27,68 +31,59 @@ const Reviews = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h2 style={styles.title}>Customer Reviews</h2>
-      <div style={styles.reviewsContainer}>
-        {reviews.map((review, index) => (
-          <div key={index} style={styles.reviewBox}>
-            <p style={styles.reviewText}>&quot;{review.text}&quot;</p>
-            <div style={styles.reviewFooter}>
-              <div style={styles.stars}>{renderStars(review.rating)}</div>
-              <div style={styles.reviewerInfo}>
-                <span>{review.name}</span>
-                <span>{review.location}</span>
-              </div>
-            </div>
+    <Carousel
+      slideSize="50%"
+      breakpoints={[{ maxWidth: 'sm', slideSize: '100%', slideGap: 2 }]}
+      slideGap="md"
+      align="start"
+      slidesToScroll={1}
+      loop
+      // withIndicators
+    >
+      {reviews.map((review) => (
+        <Carousel.Slide key={review._id}>
+          <div style={styles.reviewBox}>
+            <Image
+              src={review.user.photo}
+              alt={`${review.user.firstName} ${review.user.lastName}`}
+              width={50}
+              height={50}
+              radius="xl"
+              mb="sm"
+            />
+            <p style={styles.reviewerName}>
+              {`${review.user.firstName} ${review.user.lastName}`}
+            </p>
+            <div style={styles.stars}>{renderStars(review.rating)}</div>
+            <p style={styles.reviewText}>&quot;{review.review}&quot;</p>
           </div>
-        ))}
-      </div>
-    </div>
+        </Carousel.Slide>
+      ))}
+      <br />
+      <br />
+    </Carousel>
   );
 };
 
 const styles = {
-  container: {
-    textAlign: 'center',
-    padding: '20px',
-  },
-  title: {
-    color: '#ff6f00',
-    marginBottom: '20px',
-  },
-  reviewsContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-  },
   reviewBox: {
     margin: '10px',
     padding: '20px',
-    border: '1px solid #ddd',
-    borderRadius: '10px',
-    flex: '1 1 calc(45% - 40px)',
-    boxSizing: 'border-box',
-    minWidth: '280px',
+    border: '2px solid #ddd',
+    borderRadius: '20px',
+    textAlign: 'center',
+  },
+  reviewerName: {
+    fontWeight: 'bold',
+    marginTop: '10px',
   },
   reviewText: {
     fontStyle: 'italic',
-    marginBottom: '10px',
-  },
-  reviewFooter: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    margin: '10px 0',
   },
   stars: {
     display: 'flex',
-  },
-  reviewerInfo: {
-    textAlign: 'right',
-  },
-  '@media (max-width: 768px)': {
-    reviewBox: {
-      flex: '1 1 calc(100% - 40px)',
-    },
+    justifyContent: 'center',
   },
 };
 

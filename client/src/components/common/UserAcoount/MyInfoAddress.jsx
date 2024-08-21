@@ -51,12 +51,17 @@ const MyInfoAddress = () => {
       state: `${
         auth.user.shippingAddress?.state ? auth.user.shippingAddress.state : ''
       }`,
-      zip: `${
-        auth.user.shippingAddress?.zip ? auth.user.shippingAddress.zip : ''
-      }`,
+      // zip: `${
+      //   auth.user.shippingAddress?.zip ? auth.user.shippingAddress.zip : ''
+      // }`,
       country: `${
         auth.user.shippingAddress?.country
           ? auth.user.shippingAddress.country
+          : ''
+      }`,
+      mobileNumber: `${
+        auth.user.shippingAddress?.mobileNumber
+          ? auth.user.shippingAddress.mobileNumber
           : ''
       }`,
     },
@@ -73,8 +78,9 @@ const MyInfoAddress = () => {
           street: values.street,
           city: values.city,
           state: values.state,
-          zip: values.zip,
+          // zip: values.zip,
           country: values.country,
+          mobileNumber: values.mobileNumber
         },
       })
 
@@ -92,8 +98,9 @@ const MyInfoAddress = () => {
             street: values.street,
             city: values.city,
             state: values.state,
-            zip: values.zip,
+            // zip: values.zip,
             country: values.country,
+            mobileNumber: values.mobileNumber
           },
         },
       })
@@ -130,8 +137,8 @@ const MyInfoAddress = () => {
                       {shippingAddress.street ? shippingAddress.street : ''}
                     </p>
                     <p className="text-left">{shippingAddress.city}</p>
-                    <p className="text-left">{shippingAddress.zip}</p>
                     <p className="text-left">{shippingAddress.country}</p>
+                    <p className="text-left">{shippingAddress.mobileNumber}</p>
                   </div>
                 )}
               </div>
@@ -193,9 +200,9 @@ const MyInfoAddress = () => {
                   <TextInput
                     className="flex flex-col w-full items-start mb-4"
                     withAsterisk
-                    label="Postal code"
+                    label="Mobile Number"
                     placeholder=""
-                    {...form.getInputProps('zip')}
+                    {...form.getInputProps('mobileNumber')}
                   />
 
                   <TextInput

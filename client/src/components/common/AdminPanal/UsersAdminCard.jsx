@@ -134,7 +134,7 @@ const UsersAdminCard = (props) => {
             <p>{props.item?.shippingAddress?.street}</p>
             <p>
               {props.item?.shippingAddress?.city}{' '}
-              {props.item?.shippingAddress?.zip}
+              {/* {props.item?.shippingAddress?.zip} */}
             </p>
             <p>
               {props.item?.shippingAddress?.state}{' '}

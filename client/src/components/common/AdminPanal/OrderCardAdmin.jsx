@@ -156,7 +156,7 @@ const OrderCardAdmin = (props) => {
         <div className={styles.shippingAddress}>
           <p>{item?.shippingAddress?.street}</p>
           <p>
-            {item?.shippingAddress?.city} {item?.shippingAddress?.zip}
+            {/* {item?.shippingAddress?.city} {item?.shippingAddress?.zip} */}
           </p>
           <p>
             {item?.shippingAddress?.state} {item?.shippingAddress?.country}

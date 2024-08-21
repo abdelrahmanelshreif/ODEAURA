@@ -43,10 +43,13 @@ const userSchema = new mongoose.Schema({
     state: {
       type: String,
     },
-    zip: {
+    // zip: {
+    //   type: String,
+    // },
+    country: {
       type: String,
     },
-    country: {
+    mobileNumber: {
       type: String,
     },
   },

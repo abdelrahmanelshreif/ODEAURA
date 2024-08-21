@@ -8,7 +8,7 @@ const validateShippingAddressInput = (req, res, next) => {
       street: Joi.string().required(),
       city: Joi.string().required(),
       state: Joi.string().required(),
-      zip: Joi.string().required(),
+      // zip: Joi.string().required(),
       country: Joi.string().required(),
       mobileNumber: Joi.string().required(),
     }),

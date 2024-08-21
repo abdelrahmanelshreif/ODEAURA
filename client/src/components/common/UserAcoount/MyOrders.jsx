@@ -204,7 +204,7 @@ const MyOrders = () => {
           <div className="mb-4 text-left">
             <p className="text-gray-500 font-medium">Shipping Address:</p>
             <p className="text-gray-600">
-              {order.shippingAddress.street}, {order.shippingAddress.city}, {order.shippingAddress.state}, {order.shippingAddress.zip}, {order.shippingAddress.country}
+              {order.shippingAddress.street}, {order.shippingAddress.city}, {order.shippingAddress.state}, {order.shippingAddress.country}
             </p>
             <p className="text-gray-600">
               Shipping Cost: {order.shippingCost} EGP

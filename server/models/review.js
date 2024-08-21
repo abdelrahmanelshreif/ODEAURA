@@ -1,26 +1,6 @@
-// const mongoose = require('mongoose')
-
-// const reviewSchema = new mongoose.Schema({
-//   userId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: 'user',
-//   },
-//   rating:{
-//     type: Number,
-//     default:5.0
-//   },
-//   reviewDesc: {
-//     type: String,
-//   },
-// })
-
-// const Review = mongoose.model('review', reviewSchema)
-
-// module.exports = { Review }
-
-// review / rating / createdAt / ref to product / ref to user
 const mongoose = require('mongoose');
 const product = require('./Product');
+const user = require('./User');
 
 const reviewSchema = new mongoose.Schema(
   {
@@ -30,7 +10,7 @@ const reviewSchema = new mongoose.Schema(
     },
     rating: {
       type: Number,
-      min: 1,
+      min: 0,
       max: 5
     },
     createdAt: {
@@ -39,12 +19,12 @@ const reviewSchema = new mongoose.Schema(
     },
     product: {
       type: mongoose.Schema.ObjectId,
-      ref: 'Product',
+      ref: 'product',
       required: [true, 'Review must belong to a Product.']
     },
     user: {
       type: mongoose.Schema.ObjectId,
-      ref: 'User',
+      ref: 'user',
       required: [true, 'Review must belong to a user']
     }
   },
@@ -72,51 +52,51 @@ reviewSchema.pre(/^find/, function(next) {
   next();
 });
 
-reviewSchema.statics.calcAverageRatings = async function(productId) {
-  const stats = await this.aggregate([
-    {
-      $match: { product: productId }
-    },
-    {
-      $group: {
-        _id: '$product',
-        nRating: { $sum: 1 },
-        avgRating: { $avg: '$rating' }
-      }
-    }
-  ]);
+// reviewSchema.statics.calcAverageRatings = async function(productId) {
+//   const stats = await this.aggregate([
+//     {
+//       $match: { product: productId }
+//     },
+//     {
+//       $group: {
+//         _id: '$product',
+//         nRating: { $sum: 1 },
+//         avgRating: { $avg: '$rating' }
+//       }
+//     }
+//   ]);
   // console.log(stats);
 
-  if (stats.length > 0) {
-    await Product.findByIdAndUpdate(productId, {
-      ratingsQuantity: stats[0].nRating,
-      ratingsAverage: stats[0].avgRating
-    });
-  } else {
-    await Pour.findByIdAndUpdate(productId, {
-      ratingsQuantity: 0,
-      ratingsAverage: 4.5
-    });
-  }
-};
+//   if (stats.length > 0) {
+//     await Product.findByIdAndUpdate(productId, {
+//       ratingsQuantity: stats[0].nRating,
+//       ratingsAverage: stats[0].avgRating
+//     });
+//   } else {
+//     await Pour.findByIdAndUpdate(productId, {
+//       ratingsQuantity: 0,
+//       ratingsAverage: 4.5
+//     });
+//   }
+// };
 
-reviewSchema.post('save', function() {
-  // this points to current review
-  this.constructor.calcAverageRatings(this.product);
-});
+// reviewSchema.post('save', function() {
+//   // this points to current review
+//   this.constructor.calcAverageRatings(this.product);
+// });
 
-// findByIdAndUpdate
-// findByIdAndDelete
-reviewSchema.pre(/^findOneAnd/, async function(next) {
-  this.r = await this.findOne();
-  // console.log(this.r);
-  next();
-});
+// // findByIdAndUpdate
+// // findByIdAndDelete
+// reviewSchema.pre(/^findOneAnd/, async function(next) {
+//   this.r = await this.findOne();
+//   // console.log(this.r);
+//   next();
+// });
 
-reviewSchema.post(/^findOneAnd/, async function() {
-  // await this.findOne(); does NOT work here, query has already executed
-  await this.r.constructor.calcAverageRatings(this.r.product);
-});
+// reviewSchema.post(/^findOneAnd/, async function() {
+//   // await this.findOne(); does NOT work here, query has already executed
+//   await this.r.constructor.calcAverageRatings(this.r.product);
+// });
 
 const Review = mongoose.model('Review', reviewSchema);
 

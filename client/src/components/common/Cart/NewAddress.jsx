@@ -113,7 +113,7 @@ const NewAddress = (props) => {
       street: auth.user?.shippingAddress?.street || '',
       city: auth.user?.shippingAddress?.city || '',
       state: auth.user?.shippingAddress?.state || '',
-      zip: auth.user?.shippingAddress?.zip || '',
+      // zip: auth.user?.shippingAddress?.zip || '',
       country: auth.user?.shippingAddress?.country || '',
       mobileNumber: auth.user?.mobileNumber || '', // Include mobileNumber for both authenticated and unauthenticated users
     },
@@ -121,7 +121,7 @@ const NewAddress = (props) => {
       street: (value) => (value.length === 0 ? 'Street is required' : null),
       city: (value) => (value.length === 0 ? 'City is required' : null),
       state: (value) => (value.length === 0 ? 'State is required' : null),
-      zip: (value) => (value.length === 0 ? 'Postal code is required' : null),
+      // zip: (value) => (value.length === 0 ? 'Postal code is required' : null),
       country: (value) => (value.length === 0 ? 'Country is required' : null),
       mobileNumber: (value) => (value.length === 0 ? 'Mobile Number is required' : null),
     },
@@ -168,12 +168,12 @@ const NewAddress = (props) => {
         />
       </div>
       <div className="flex flex-row gap-4">
-        <TextInput
+        {/* <TextInput
           withAsterisk
           label="Postal code"
           placeholder=""
           {...form.getInputProps('zip')}
-        />
+        /> */}
         <TextInput
           withAsterisk
           label="Country"
