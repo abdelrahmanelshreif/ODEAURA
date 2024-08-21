@@ -4,7 +4,7 @@ const authController = require('./../middleware/auth');
 
 const router = express.Router({ mergeParams: true });
 
-router.use(authController.isAuthenticated);
+// router.use(authController.isAuthenticated);
 
 router
   .route('/')
